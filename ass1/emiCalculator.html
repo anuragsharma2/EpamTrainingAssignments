@@ -1,0 +1,83 @@
+<html>
+<head>
+<title>Home</title>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="style.css" />
+    <script>
+        function calcmax(){
+            if(document.f1.lType.value=="Home"){
+             document.f1.duration.max= 25;
+             if(document.f1.duration.value>=25){
+               alert("duration of Home loan exceeded");
+               document.f1.duration.value=25;
+             }
+            }
+            else if(document.f1.lType.value=="car"){
+               document.f1.duration.max= 7;
+                if(document.f1.duration.value>=7){
+                   alert("duration of car loan exceeded");
+                   document.f1.duration.value=7;
+                }
+            }
+            else{
+                document.f1.duration.max= 5;
+                if(document.f1.duration.value>=5){
+                    alert("duration of personel loan exceeded");
+                    document.f1.duration.value=5;
+                }
+            }
+        }
+        function getRoi(){
+            if(document.f1.lType.value=="Home")
+             document.f1.roi.value= 7;
+             else if(document.f1.lType.value=="car")
+             document.f1.roi.value= 9;
+             else
+             document.f1.roi.value= 12;
+        }
+        function calculateEmi(){
+            document.f1.emi.value= document.f1.roi.value*eval(document.f1.loana.value)*(1+document.f1.roi.value)*document.f1.duration.value/((1+document.f1.roi.value)*document.f1.duration.value-1);
+        }
+        function durationChange(){
+            console.log(document.f1);
+            if(document.f1.lType.value=="")
+                document.f1.duration.value="";
+            else
+                calcmax();
+        }
+    </script>
+</head>
+<body>
+<header>MY BANK PVT. LTD.</header><hr>
+<div style="display:flex;">
+<div class="menu">
+<a href="home.html">HOME</a><br>
+<a href="aboutus.html">ABOUT US</a><br>
+<a href="contactus.html">CONTACT US</a><br>
+<a href="netbanking.html">NETBANKING</a><br>
+<a href="services.html">SERVICES</a><br>
+</div>
+<div class="section">
+    <h3>EMI CALCULATOR<h3><hr>
+    <form name="f1">
+        Applicant Name<br> <input type="text" name="aName"><br>
+        Loan Amount <br><input type="text" name="loana"><br>
+        Loan Type<br>
+        <select name="lType" onChange="getRoi()" >
+           <option value="" >select</option>
+           <option value="Home">home loan</option> 
+           <option value="car">car loan</option>
+           <option value="personel">personel loan</option>
+        </select><br>
+        Duration<br> <input type="number" name="duration" min=0 onChange="durationChange()"><br>
+        Rate of interest<br> <input type="number" name="roi" value="document.f1.roi.value" readonly><br>
+        EMI<br> <input type="number" name="emi" readonly><br><br>
+        <input type="button" value="CALCULATE" onClick="calculateEmi()">
+        <input type="reset" value="CLEAR" ><hr>
+    </form>
+</div>
+</div>
+<hr>
+<footer>All @ Copyrights reserved </footer>
+</body>
+</html>

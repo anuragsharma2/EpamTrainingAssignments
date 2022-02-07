@@ -1,0 +1,54 @@
+header {
+	font-size: 300%;
+	font-weight: bold;
+	text-align: center;
+	color :blue;
+	background: orange;
+}
+footer {
+	text-align: center;
+	color :blue;
+	background: orange;
+}
+.menu {
+	line-height: 1.4;
+	text-align: center;
+	background: orange;
+	font-size:200%;
+	width:20%;
+	height:100%;
+}
+a:hover {
+	background:green ;
+}
+.section{
+	margin-left: 100px;
+	text-align: center;
+	background: skyblue;
+	width:60%;
+}
+table {
+	font-family: arial, sans-serif;
+	border-collapse: collapse;
+	width: 70%;
+  }
+  
+  td, th {
+	border: 1px solid #dddddd;
+	text-align: left;
+	padding: 8px;
+  }
+  
+  tr:nth-child(even) {
+	background-color: #dddddd;
+  }
+.dot {
+	height: 30px;
+	width: 30px;
+	border-radius: 50%;
+	display: inline-block;
+}
+form {
+	font-weight: bold;
+}
+

@@ -1,0 +1,114 @@
+<html>
+<head>
+<title>APPLY</title>
+<link rel="stylesheet" href="style.css" />
+<meta charset="UTF-8">
+<script>
+    var data=[];
+    function obj(name,age,mno,accType,bname){
+        this.name=name;
+        this.age=age;
+        this.mobileNumber=mno;
+        this.accountType=accType;
+        this.branchName=bname;
+    }
+    function applying(){
+        console.log(document.form.custName.value)
+      var cust =  new obj(document.form.custName.value,document.form.age.value,document.form.mNo.value,document.form.accType.value,document.form.branchName.value)
+      console.log(cust);
+      data.push(cust);
+      console.log(data);
+      document.getElementById("dot").innerHTML=`Recent Operation <span class="dot" style="background-color: blue;"></span>`
+    }  
+    function displayNames(){
+        let s1=`<table>
+                    <tr><th>Names</th><th>Account Type</th></tr>`
+        let s2=``;
+        data.forEach(function display(x){
+          s2 += `<tr><td>${x.name}</td> <td>${x.accountType}</td></tr>`;
+    });
+        let s3=`</table>`
+        str=s1+s2+s3;
+        document.getElementById("show").innerHTML=str;
+    }
+    function displayAll(){
+        let s1=`<table>
+                <tr><th>Name</th>
+                    <th>Age</th>
+                    <th>Mobile Number</th>
+                    <th>Account Type</th>
+                    <th>Branch Name</th></tr>`;
+        let s2=``;    
+            for(let i=0;i<data.length;i++){
+                    s2 += `   
+                      <tr> <td> ${data[i].name}</td><td> ${data[i].age}</td><td>${data[i].mobileNumber}</td><td>${data[i].accountType}</td><td>${data[i].branchName}</td></tr> `;
+            }
+        let s3=`</table>`;  
+    var str=s1+s2+s3;
+    document.getElementById("show").innerHTML=str;
+    }
+    function remov(n){
+        data.splice(n,1);
+        displayAll();
+        document.getElementById("dot").innerHTML=`Recent Operation <span class="dot" style="background-color: red;"></span>`
+    }
+    var flag=true;
+    function remove(){
+        if(flag){
+        document.getElementById("remove").innerHTML= ` <h4>enter record to remove:<h4> <form>
+                                                                                    <input type="number" name="i"> 
+                                                                                    <input type="button" value="REMOVE" onClick="remov(i.value)">
+                                                                                    </form> ` 
+        document.getElementById("removeHeading").innerText="Hide"                                                                              
+            flag=false;
+            }
+        else{
+            document.getElementById("remove").innerHTML=""
+            document.getElementById("removeHeading").innerText="REMOVE"
+            flag=true;
+        }                                                                          
+    }
+    
+</script>
+</head>
+<body>
+<header>MY BANK PVT. LTD.</header><hr>
+<div style="display:flex;">
+    <div class="menu">
+        <a href="home.html">HOME</a><br>
+        <a href="aboutus.html">ABOUT US</a><br>
+        <a href="contactus.html">CONTACT US</a><br>
+        <a href="netbanking.html">NETBANKING</a><br>
+        <a href="services.html">SERVICES</a><br>
+    </div>
+    <div class="section">
+        <h3>APPLICATION FORM</h3><hr>
+        <form name="form">
+            Customer name<br><input type="text" name="custName"><br>
+            Customer age<br><input type="number" name="age"><br>
+            Mobile Number <br><input type="text" name="mNo"><br>
+            Account type<br><select name="accType">
+                    <option value="">Select</option>
+                    <option value="savings">Savings</option>
+                    <option value="current">Current</option>
+                    <option value="salary">Salary</option>
+            </select><br>
+            Branch name<br><input type="text" name="branchName"><br><br>
+            <input type="button" value="APPLY" onclick="applying()">
+            <input type="button" value="DISPLAY NAMES" onclick="displayNames()">
+            <input type="button" value="DISPLAY ALL" onclick="displayAll()">
+            <input type="reset"  value="CLEAR">
+        </form>
+	<div id="dot">
+    		Recent Operation <span class="dot" style="background-color: skyblue;"></span>
+    	</div>
+        <hr>
+    </div>
+</div>
+    
+    <h3 id="removeHeading" onClick="remove()">REMOVE</h3>
+    <div id="remove"></div>
+    <div id="show"></div>
+<hr><footer>All @ copyrights reserved .</footer>
+</body>
+</html>
