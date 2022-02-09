@@ -1,4 +1,4 @@
-<h2>
+<!--<h2>
   displaying object data: 
 </h2><br>
 <h3>
@@ -8,7 +8,8 @@ degree :{{obj["degree"]}}<br>
 interest :{{obj["interest"]}}<br>
 height :{{obj["height"]}}<br>
 likedFood :{{obj["likedFood"]}}<br>
-</h3><hr><hr><br>
+</h3>-->
+<hr><hr><br>
 <h1>images property binding</h1>
 <div class="row">
   <div class="col-4">
@@ -22,9 +23,48 @@ likedFood :{{obj["likedFood"]}}<br>
   </div>
 </div>
 <hr><hr>
-<input type="text" #pno placeholder="enter phone number" >
-<button (click)="validate(pno.value)" class="btn btn-primary">Validate</button>
-<hr><h1>Login </h1>
-<input type="text" #uid placeholder="User ID"><br><br>
-<input type="password" #pwd ><br><br>
-<button class="btn btn-primary" (click)="validateLogin(uid.value,pwd.value)">Login</button><hr><hr>
+color: <input type="text" [(ngModel)]="strColor">&nbsp;
+width: <input type="text" [(ngModel)]="strWidth">&nbsp;
+height: <input type="text" [(ngModel)]="strHeight">&nbsp;
+Font size: <input type="text" [(ngModel)]="strFontSize">&nbsp;
+Font color:<input type="text" [(ngModel)]="strFontColor">
+<br><br>
+<div [ngStyle]="{'background-color': strColor, 'width':strWidth+'px' ,'height':strHeight+'px', 'font-size':strFontSize, 'font-color':strFontColor }">  
+This is ngStyle div block with attribute directive
+</div><br><hr><br>
+<br><hr><br>
+<div *ngIf="bLogin==true" style="width: 50%; height: 50%; border: 2px solid rgba(77, 77, 218, 0.397); text-align: center; ">
+  <img src="./assets/login.jpg" width="40%" height="40%"/>
+  <h4>User ID: </h4><input type="text" #uid placeholder="Username" ><br><br>
+  <h4>Password: </h4><input type="password" #password ><br><br>
+  <button class="btn btn-primary" (click)="login(uid.value,password.value)">Login</button><br><br>
+  <h4> want to register click <button class="btn btn-info" (click)="changeToRegister()">here</button></h4>
+</div>
+<div *ngIf="bRegister==true" style="width: 50%; height: 40%;border: 2px solid rgba(255, 0, 0, 0.479);  text-align: center; ">
+  <img src="./assets/register.jpg" width="40%" height="40%"/>
+  <h4>Name: </h4><input type="text" #name placeholder="Name" ><br><br>
+  <h4>Mobile Number: </h4><input type="text" #mobile placeholder="Mobile" ><br><br>
+  <h4>User ID: </h4><input type="text" #uid placeholder="Username" ><br><br>
+  <h4>Password: </h4><input type="password" #password ><br><br>
+  <button class="btn btn-primary" (click)="register(uid.value,password.value)">Register</button><br><br>
+  <h4> want to Login click <button class="btn btn-info" (click)="changeToLogin()" >here</button></h4> 
+</div><br><hr><br>
+<div *ngIf="displayTable==true">
+<table class="table table-hover table-dark" >
+  <thead>
+    <tr>
+      <th>Username</th>
+      <th>Password</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody *ngFor="let user of users;let i=index" >
+    <tr>
+      <td>{{user.uid}}</td>
+      <td>{{user.password}}</td>
+      <td><button class="btn btn-danger" (click)="deleteUser(i)">Delete</button>
+      &nbsp;<button class="btn btn-danger" (click)="editUser(i)">Edit</button></td>
+    </tr>
+  </tbody>
+</table>
+</div>
