@@ -35,7 +35,16 @@ export class AppComponent {
     { uid:"ojas" ,password:"0987"},
     { uid:"anand" ,password:"12345"}
   ]
-  displayTable=false;
+  employees=[
+    { eid:'1' ,name:"amit" ,location:"bharatpur", department: "cse", designation:"student"},
+    { eid:'2' ,name:"ojas" ,location:"agra", department: "pcb", designation:"student"},
+    { eid:'3' ,name:"anand" ,location:"kanpur", department: "IT", designation:"SE"},
+    { eid:'4' ,name:"harshit" ,location:"mathura", department: "mechanical", designation:"student"}
+  ]
+  displayEmployeesTable=false;
+  addEmployeeForm=false;
+  displayEditEmployeeForm=false;
+  displayUsersTable=false;
   bLogin=true;
   bRegister=false;
   changeToLogin(){
@@ -49,7 +58,7 @@ export class AppComponent {
   login(uid:string,password:string){
     for(let user of this.users){
       if(user.uid==uid && user.password==password){
-        this.displayTable=true;
+        this.displayEmployeesTable=true;
         return ;
       }
       alert("Invalid UserID and Password ")
@@ -61,12 +70,45 @@ export class AppComponent {
     this.user.password=password;
     return this.user;
   }
+  employee={ eid:"",name:"",location: "",department:"",designation:""};
+  makeEmployeeObj(eid:string,name:string,location:string,department:string,designation:string){
+    this.employee.eid=eid;
+    this.employee.name=name;
+    this.employee.location=location;
+    this.employee.department=department;
+    this.employee.designation=designation;
+    return this.employee;
+  }
   register(uid:string,password:string){
     this.makeObj(uid,password);
     this.users.push(this.user);
   }
+  deleteEmployee(index:number){
+    this.employees.splice(index,1);
+  }
+  currentEditIndex=0;
+  editEmployee(index:number){
+    this.displayEditEmployeeForm=true;
+    this.currentEditIndex=index;
+  }
+  updateEmployee(eid:string,name:string,location:string,department:string,designation:string){
+    this.employees[this.currentEditIndex]["eid"]=eid;
+    this.employees[this.currentEditIndex]["name"]=name;
+    this.employees[this.currentEditIndex]["location"]=location;
+    this.employees[this.currentEditIndex]["department"]=department;
+    this.employees[this.currentEditIndex]["designation"]=designation;
+    this.displayEditEmployeeForm=false;
+  }
+  createEmployee(eid:string,name:string,location:string,department:string,designation:string){
+    let emp=this.makeEmployeeObj(eid,name,location,department,designation);
+    this.employees.push(emp);
+    this.addEmployeeForm=false;
+  }
+  addEmployee(){
+    this.addEmployeeForm=true;
+  }
   deleteUser(index:number){
-    this.users.splice(index,1);
+
   }
   editUser(index:number){
     

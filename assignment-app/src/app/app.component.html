@@ -33,23 +33,21 @@ Font color:<input type="text" [(ngModel)]="strFontColor">
 This is ngStyle div block with attribute directive
 </div><br><hr><br>
 <br><hr><br>
-<div *ngIf="bLogin==true" style="width: 50%; height: 50%; border: 2px solid rgba(77, 77, 218, 0.397); text-align: center; ">
+<div *ngIf="bLogin==true" style="width: 30%; height: 40%; border: 2px solid rgba(77, 77, 218, 0.397); text-align: center; ">
   <img src="./assets/login.jpg" width="40%" height="40%"/>
-  <h4>User ID: </h4><input type="text" #uid placeholder="Username" ><br><br>
-  <h4>Password: </h4><input type="password" #password ><br><br>
+  <h4>User ID </h4><input type="text" #uid placeholder="Username" ><br>
+  <h4>Password </h4><input type="password" #password ><br><br>
   <button class="btn btn-primary" (click)="login(uid.value,password.value)">Login</button><br><br>
   <h4> want to register click <button class="btn btn-info" (click)="changeToRegister()">here</button></h4>
 </div>
-<div *ngIf="bRegister==true" style="width: 50%; height: 40%;border: 2px solid rgba(255, 0, 0, 0.479);  text-align: center; ">
+<div *ngIf="bRegister==true" style="width: 30%; height: 40%;border: 2px solid rgba(255, 0, 0, 0.479);  text-align: center; ">
   <img src="./assets/register.jpg" width="40%" height="40%"/>
-  <h4>Name: </h4><input type="text" #name placeholder="Name" ><br><br>
-  <h4>Mobile Number: </h4><input type="text" #mobile placeholder="Mobile" ><br><br>
   <h4>User ID: </h4><input type="text" #uid placeholder="Username" ><br><br>
   <h4>Password: </h4><input type="password" #password ><br><br>
   <button class="btn btn-primary" (click)="register(uid.value,password.value)">Register</button><br><br>
   <h4> want to Login click <button class="btn btn-info" (click)="changeToLogin()" >here</button></h4> 
 </div><br><hr><br>
-<div *ngIf="displayTable==true">
+<div *ngIf="displayUsersTable==true">
 <table class="table table-hover table-dark" >
   <thead>
     <tr>
@@ -67,4 +65,50 @@ This is ngStyle div block with attribute directive
     </tr>
   </tbody>
 </table>
+</div>
+<div *ngIf="displayEditEmployeeForm==true" style="width: 30%; height: 40%;border: 2px solid rgba(255, 0, 0, 0.479);  text-align: center; ">
+  <img src="./assets/register.jpg" width="30%" height="30%"/>
+  <h4>Employee ID&nbsp; <input type="text" #eid ></h4>&nbsp;
+  <h4>Name&nbsp; </h4><input type="text" #name >
+  <h4>Location &nbsp; </h4><input type="text" #location >&nbsp;
+  <h4>Department &nbsp; </h4><input type="text" #department >
+  <h4>Designation &nbsp; </h4><input type="text" #designation ><br><br>
+  <button class="btn btn-primary" (click)="updateEmployee(eid.value,name.value,location.value,department.value,designation.value)">Edit</button><br><br>
+</div>
+<div *ngIf="addEmployeeForm==true" style="width: 30%; height: 40%;border: 2px solid rgba(255, 0, 0, 0.479);  text-align: center; ">
+  <img src="./assets/register.jpg" width="30%" height="30%"/>
+  <h4>Employee ID <input type="text" #eid ></h4>&nbsp;
+  <h4>Name&nbsp; </h4><input type="text" #name >
+  <h4>Location &nbsp; </h4><input type="text" #location >&nbsp;
+  <h4>Department &nbsp; </h4><input type="text" #department >
+  <h4>Designation &nbsp; </h4><input type="text" #designation ><br><br>
+  <button class="btn btn-primary" (click)="createEmployee(eid.value,name.value,location.value,department.value,designation.value)">Add</button><br><br>
+</div>
+<div id="employeeTable">
+<div *ngIf="displayEmployeesTable==true" >
+  <button class="btn btn-secondary" (click)="addEmployee()">Add</button>
+  <table class="table table-hover table-dark" >
+    <thead>
+      <tr>
+        <th>Employee ID</th>
+        <th>Name</th>
+        <th>Location</th>
+        <th>Department</th>
+        <th>Designation</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody *ngFor="let employee of employees;let i=index" >
+      <tr>
+        <td>{{employee.eid}}</td>
+        <td>{{employee.name}}</td>
+        <td>{{employee.location}}</td>
+        <td>{{employee.department}}</td>
+        <td>{{employee.designation}}</td>
+        <td><button class="btn btn-danger" (click)="deleteEmployee(i)">Delete</button>
+        &nbsp;<button class="btn btn-danger" (click)="editEmployee(i)">Edit</button></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
 </div>
