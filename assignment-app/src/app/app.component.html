@@ -33,14 +33,14 @@ Font color:<input type="text" [(ngModel)]="strFontColor">
 This is ngStyle div block with attribute directive
 </div><br><hr><br>
 <br><hr><br>
-<div *ngIf="bLogin==true" style="width: 30%; height: 40%; border: 2px solid rgba(77, 77, 218, 0.397); text-align: center; ">
+<div *ngIf="bLogin==true" style="width: 30%; height: 40%; border: 2px solid rgba(77, 77, 218, 0.397); text-align: center; margin:auto; ">
   <img src="./assets/login.jpg" width="40%" height="40%"/>
   <h4>User ID </h4><input type="text" #uid placeholder="Username" ><br>
   <h4>Password </h4><input type="password" #password ><br><br>
   <button class="btn btn-primary" (click)="login(uid.value,password.value)">Login</button><br><br>
   <h4> want to register click <button class="btn btn-info" (click)="changeToRegister()">here</button></h4>
 </div>
-<div *ngIf="bRegister==true" style="width: 30%; height: 40%;border: 2px solid rgba(255, 0, 0, 0.479);  text-align: center; ">
+<div *ngIf="bRegister==true" style="width: 30%; height: 40%;border: 2px solid rgba(255, 0, 0, 0.479);  text-align: center;  margin:auto;">
   <img src="./assets/register.jpg" width="40%" height="40%"/>
   <h4>User ID: </h4><input type="text" #uid placeholder="Username" ><br><br>
   <h4>Password: </h4><input type="password" #password ><br><br>
@@ -66,25 +66,25 @@ This is ngStyle div block with attribute directive
   </tbody>
 </table>
 </div>
-<div *ngIf="displayEditEmployeeForm==true" style="width: 30%; height: 40%;border: 2px solid rgba(255, 0, 0, 0.479);  text-align: center; ">
-  <img src="./assets/register.jpg" width="30%" height="30%"/>
-  <h4>Employee ID&nbsp; <input type="text" #eid ></h4>&nbsp;
-  <h4>Name&nbsp; </h4><input type="text" #name >
-  <h4>Location &nbsp; </h4><input type="text" #location >&nbsp;
-  <h4>Department &nbsp; </h4><input type="text" #department >
-  <h4>Designation &nbsp; </h4><input type="text" #designation ><br><br>
-  <button class="btn btn-primary" (click)="updateEmployee(eid.value,name.value,location.value,department.value,designation.value)">Edit</button><br><br>
+<div *ngIf="displayEditEmployeeForm==true" style="width: 30%; height: 40%;border: 2px solid rgba(255, 0, 0, 0.479);  text-align: center;  margin:auto;">
+  <img src="./assets/editlogo.PNG" width="30%" height="30%"/><br><br>
+  <h4>Employee ID&nbsp;</h4> <input type="text" [(ngModel)]="employees[this.currentEditIndex]['eid']" >
+  <h4>Name&nbsp; </h4><input type="text" [(ngModel)]=" this.employees[this.currentEditIndex]['name']" >
+  <h4>Location &nbsp; </h4><input type="text"  [(ngModel)]=" this.employees[this.currentEditIndex]['location']" >&nbsp;
+  <h4>Department &nbsp; </h4><input type="text"  [(ngModel)]=" this.employees[this.currentEditIndex]['department']" >
+  <h4>Designation &nbsp; </h4><input type="text"  [(ngModel)]=" this.employees[this.currentEditIndex]['designation']" ><br><br>
+  <button class="btn btn-primary" (click)="updateEmployee()">Edit</button><br><br>
 </div>
-<div *ngIf="addEmployeeForm==true" style="width: 30%; height: 40%;border: 2px solid rgba(255, 0, 0, 0.479);  text-align: center; ">
+<div *ngIf="addEmployeeForm==true" style="width: 30%; height: 40%;border: 2px solid rgba(255, 0, 0, 0.479);  text-align: center;  margin:auto;">
   <img src="./assets/register.jpg" width="30%" height="30%"/>
-  <h4>Employee ID <input type="text" #eid ></h4>&nbsp;
+  <h4>Employee ID&nbsp;</h4> <input type="text" #eid >
   <h4>Name&nbsp; </h4><input type="text" #name >
   <h4>Location &nbsp; </h4><input type="text" #location >&nbsp;
   <h4>Department &nbsp; </h4><input type="text" #department >
   <h4>Designation &nbsp; </h4><input type="text" #designation ><br><br>
   <button class="btn btn-primary" (click)="createEmployee(eid.value,name.value,location.value,department.value,designation.value)">Add</button><br><br>
 </div>
-<div id="employeeTable">
+
 <div *ngIf="displayEmployeesTable==true" >
   <button class="btn btn-secondary" (click)="addEmployee()">Add</button>
   <table class="table table-hover table-dark" >
@@ -111,4 +111,30 @@ This is ngStyle div block with attribute directive
     </tbody>
   </table>
 </div>
-</div>
+<br><hr><br>
+<button class="btn btn-primary" (click)="getAllProductsUsingProductService()">Get All Products</button><br><br>
+<table class="table table-hover table-dark table-bordered">
+  <thead>
+    <tr>
+      <td><input type="number" [(ngModel)]="productId" (ngModelChange)="getProductByIdFromProductServices()" placeholder="Enter id"></td>
+      <td><input type="text" [(ngModel)]="productName" (ngModelChange)="getProductByNameFromProductServices()" placeholder="Enter Name"></td>
+      <td><input type="number" [(ngModel)]="productCost" (ngModelChange)="getProductByCostFromProductServices()" placeholder="Enter Cost"></td>
+      <td><input type="text" [(ngModel)]="productDescription" (ngModelChange)="getProductByDescriptionFromProductServices()" placeholder="Enter description"></td>
+      <td><button class="btn btn-secondary" (click)="getProductByAllFiltersFromProductServices()" >Filter</button><br><br></td>
+    </tr>
+    <tr>
+      <th>Product Id </th>
+      <th>Product Name </th>
+      <th>Product Cost </th>
+      <th>Product Description </th>
+    </tr>
+  </thead>
+  <tbody *ngFor="let product of arrProductList,let i=index">
+    <tr>
+      <td>{{product.productId}}</td>
+      <td>{{product.productName}}</td>
+      <td>{{product.productCost | currency: 'INR'}}</td>
+      <td>{{product.productDescription}}</td>
+    </tr>
+  </tbody>
+</table>

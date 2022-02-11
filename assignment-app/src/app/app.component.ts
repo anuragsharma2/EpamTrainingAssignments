@@ -1,5 +1,8 @@
 import { AbstractEmitterVisitor } from '@angular/compiler/src/output/abstract_emitter';
 import { Component } from '@angular/core';
+import { LoggerService } from './logger.service';
+import { Product } from './Product';
+import { ProductService } from './product.service';
 
 @Component({
   selector: 'app-root',
@@ -59,10 +62,11 @@ export class AppComponent {
     for(let user of this.users){
       if(user.uid==uid && user.password==password){
         this.displayEmployeesTable=true;
+        alert("user login successfull");
         return ;
       }
-      alert("Invalid UserID and Password ")
     }
+    alert("Invalid UserID and Password ")
   }
   user= { uid:"" ,password:""}
   makeObj(uid:string,password:string):any{
@@ -86,17 +90,12 @@ export class AppComponent {
   deleteEmployee(index:number){
     this.employees.splice(index,1);
   }
-  currentEditIndex=0;
+  currentEditIndex:number=0;
   editEmployee(index:number){
     this.displayEditEmployeeForm=true;
     this.currentEditIndex=index;
   }
-  updateEmployee(eid:string,name:string,location:string,department:string,designation:string){
-    this.employees[this.currentEditIndex]["eid"]=eid;
-    this.employees[this.currentEditIndex]["name"]=name;
-    this.employees[this.currentEditIndex]["location"]=location;
-    this.employees[this.currentEditIndex]["department"]=department;
-    this.employees[this.currentEditIndex]["designation"]=designation;
+  updateEmployee(){
     this.displayEditEmployeeForm=false;
   }
   createEmployee(eid:string,name:string,location:string,department:string,designation:string){
@@ -112,5 +111,34 @@ export class AppComponent {
   }
   editUser(index:number){
     
+  }
+  constructor(private productService : ProductService,private logger:LoggerService){}
+  
+  arrProductList!:Product[];
+  getAllProductsUsingProductService(){
+    this.logger.info("before printing table ");
+    this.arrProductList=this.productService.getAllProducts();
+    if(this.arrProductList==undefined)
+      this.logger.error;
+    this.logger.info("after printing table ");
+  }
+  productId!:number;
+  productName!:string;
+  productCost!:number;
+  productDescription!:string;
+  getProductByNameFromProductServices(){
+    this.arrProductList=this.productService.getProductByName(this.productName);
+  }  
+  getProductByIdFromProductServices(){
+    this.arrProductList=this.productService.getProductById(this.productId);
+  }
+  getProductByCostFromProductServices(){
+    this.arrProductList=this.productService.getProductByCost(this.productCost);
+  }
+  getProductByDescriptionFromProductServices(){
+    this.arrProductList=this.productService.getProductByDescription(this.productDescription);
+  }
+  getProductByAllFiltersFromProductServices(){
+    this.arrProductList=this.productService.getProductByAll(this.productId,this.productName,this.productCost,this.productDescription);
   }
 }
