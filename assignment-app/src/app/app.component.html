@@ -8,7 +8,7 @@ degree :{{obj["degree"]}}<br>
 interest :{{obj["interest"]}}<br>
 height :{{obj["height"]}}<br>
 likedFood :{{obj["likedFood"]}}<br>
-</h3>-->
+</h3>
 <hr><hr><br>
 <h1>images property binding</h1>
 <div class="row">
@@ -111,30 +111,27 @@ This is ngStyle div block with attribute directive
     </tbody>
   </table>
 </div>
+<br><hr><br>-->
+<nav class="navbar navbar-dark mb-5">
+  <div class="container">
+    <ul class="nav nav-pills">
+      <li class="nav-item">
+        <a class="nav-link" routerLinkActive="active" routerLink="/about">About</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" routerLinkActive="active" routerLink="/contact">Contact US</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" routerLinkActive="active" routerLink="/product">Products</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" routerLinkActive="active" routerLink="/employee">Employee</a>
+      </li>
+    </ul>
+  </div>
+</nav>
+
+<router-outlet></router-outlet>
 <br><hr><br>
-<button class="btn btn-primary" (click)="getAllProductsUsingProductService()">Get All Products</button><br><br>
-<table class="table table-hover table-dark table-bordered">
-  <thead>
-    <tr>
-      <td><input type="number" [(ngModel)]="productId" (ngModelChange)="getProductByIdFromProductServices()" placeholder="Enter id"></td>
-      <td><input type="text" [(ngModel)]="productName" (ngModelChange)="getProductByNameFromProductServices()" placeholder="Enter Name"></td>
-      <td><input type="number" [(ngModel)]="productCost" (ngModelChange)="getProductByCostFromProductServices()" placeholder="Enter Cost"></td>
-      <td><input type="text" [(ngModel)]="productDescription" (ngModelChange)="getProductByDescriptionFromProductServices()" placeholder="Enter description"></td>
-      <td><button class="btn btn-secondary" (click)="getProductByAllFiltersFromProductServices()" >Filter</button><br><br></td>
-    </tr>
-    <tr>
-      <th>Product Id </th>
-      <th>Product Name </th>
-      <th>Product Cost </th>
-      <th>Product Description </th>
-    </tr>
-  </thead>
-  <tbody *ngFor="let product of arrProductList,let i=index">
-    <tr>
-      <td>{{product.productId}}</td>
-      <td>{{product.productName}}</td>
-      <td>{{product.productCost | currency: 'INR'}}</td>
-      <td>{{product.productDescription}}</td>
-    </tr>
-  </tbody>
-</table>
+footer
+

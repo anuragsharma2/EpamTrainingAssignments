@@ -1,0 +1,27 @@
+<button class="btn btn-primary" (click)="getAllProductsUsingProductService()">Get All Products</button><br><br>
+<table class="table table-hover table-dark table-bordered">
+  <thead>
+    <tr>
+      <td><input type="number" [(ngModel)]="productId" (ngModelChange)="getProductByIdFromProductServices()" placeholder="Enter id"></td>
+      <td><input type="text" [(ngModel)]="productName" (ngModelChange)="getProductByNameFromProductServices()" placeholder="Enter Name"></td>
+      <td><input type="number" [(ngModel)]="productCost" (ngModelChange)="getProductByCostFromProductServices()" placeholder="Enter Cost"></td>
+      <td><input type="text" [(ngModel)]="productDescription" (ngModelChange)="getProductByDescriptionFromProductServices()" placeholder="Enter description"></td>
+      <td><button class="btn btn-secondary" (click)="getProductByAllFiltersFromProductServices()" >Filter</button><br><br></td>
+    </tr>
+    <tr>
+      <th>Product Id </th>
+      <th>Product Name </th>
+      <th>Product Cost </th>
+      <th>Product Description </th>
+    </tr>
+  </thead>
+  <tbody *ngFor="let product of arrProductList,let i=index">
+    <tr>
+      <td>{{product.productId}}</td>
+      <td>{{product.productName}}</td>
+      <td>{{product.productCost | currency: 'INR'}}</td>
+      <td>{{product.productDescription}}</td>
+    </tr>
+  </tbody>
+</table>
+<p>product works!</p>
