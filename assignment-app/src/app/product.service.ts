@@ -1,51 +1,32 @@
 import { Injectable } from '@angular/core';
 import { Product } from './Product';
+import { Observable } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root' //appmodule
 })
 export class ProductService {
 
-  constructor() { }
-  ProductList:Product[] =[
-    {productId:201, productName:"android",productCost: 20000,productDescription:"android phone"},
-    {productId:202, productName:"TV",productCost: 40000,productDescription:"sony TV"},
-    {productId:203, productName:"Cycle",productCost: 3000,productDescription:"gear cycle"},
-    {productId:204, productName:"Car",productCost: 1500000,productDescription:"electric Car"},
-    {productId:205, productName:"Truck",productCost: 2000000,productDescription:"Truck"},
-  ]
-  
-  getAllProducts(){
-    return this.ProductList;
+  constructor(private http:HttpClient) { }
+  ProductList!:Product[] ;
+  url="http://localhost:3000/products"
+  getAllProducts():Observable<any>{
+    return this.http.get(this.url);
   }
   getProductById(id:number){
-    let gotProductById:Product[]=this.ProductList.filter((product)=>{ 
-      return product.productId == id;
-     })
-     return gotProductById;
+     return this.http.get(this.url+"?productId_like="+id);
   }
-  getProductByCost(cost:number){
-    let gotProductByCost:Product[]=this.ProductList.filter((product)=>{ 
-      return product.productCost == cost;
-     })
-     return gotProductByCost;
+  getProductByCost(cost:number):Observable<any>{
+     return this.http.get(this.url+"?productCost_like="+cost);
   }
-  getProductByName(name:string){
-    let gotProductByName:Product[]=this.ProductList.filter((product)=>{
-      return product.productName.toUpperCase().includes(name.toUpperCase());
-    });
-    return gotProductByName;
+  getProductByName(name:string):Observable<any>{
+    return this.http.get(this.url+"?productName_like="+name);
   }
-  getProductByDescription(description:string){
-    let gotProductByDescription:Product[]=this.ProductList.filter((product)=>{
-      return product.productDescription.toUpperCase().includes(description.toUpperCase());
-    });
-    return gotProductByDescription;
+  getProductByDescription(description:string):Observable<any>{
+    return this.http.get(this.url+"?productDescription_like="+description);
   }
-  getProductByAll(id:number,name:string,cost:number,description:string){
-    let gotProductsByAll= this.ProductList.filter((product)=>{
-      return product.productId==id && product.productName==name && product.productCost==cost && product.productDescription==description;
-    })
-    return gotProductsByAll;
+  getProductByAll(id:number,name:string,cost:number,description:string):Observable<any>{
+    return this.http.get(this.url+"?productId_like="+id+"&&productName_like="+name);
   }
 }

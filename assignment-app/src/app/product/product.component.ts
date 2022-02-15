@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { LoggerService } from '../logger.service';
-import { Product } from '../Product';
 import { ProductService } from '../product.service';
+
 
 @Component({
   selector: 'app-product',
@@ -15,12 +15,14 @@ export class ProductComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  arrProductList!:Product[];
+  arrProductList!:any;
   getAllProductsUsingProductService(){
     this.logger.info("before printing table ");
-    this.arrProductList=this.productService.getAllProducts();
+    this.productService.getAllProducts().subscribe(
+      (products)=>{ this.arrProductList= products },
+      ()=>{ this.logger.error;}
+    );
     if(this.arrProductList==undefined)
-      this.logger.error;
     this.logger.info("after printing table ");
   }
   productId!:number;
@@ -28,19 +30,33 @@ export class ProductComponent implements OnInit {
   productCost!:number;
   productDescription!:string;
   getProductByNameFromProductServices(){
-    this.arrProductList=this.productService.getProductByName(this.productName);
+    this.productService.getProductByName(this.productName).subscribe(
+      (products)=>{
+        this.arrProductList=products;
+      },
+      ()=>{ console.log("DB not on")}
+    );
   }  
   getProductByIdFromProductServices(){
-    this.arrProductList=this.productService.getProductById(this.productId);
+    this.productService.getProductById(this.productId).subscribe(
+      (products)=>{ this.arrProductList=products; },
+      ()=>{ console.log("DB not on")}
+    );
   }
   getProductByCostFromProductServices(){
-    this.arrProductList=this.productService.getProductByCost(this.productCost);
+    this.productService.getProductByCost(this.productCost).subscribe(
+      (products)=>{
+        this.arrProductList=products;
+      }
+    );
   }
   getProductByDescriptionFromProductServices(){
     this.arrProductList=this.productService.getProductByDescription(this.productDescription);
   }
   getProductByAllFiltersFromProductServices(){
-    this.arrProductList=this.productService.getProductByAll(this.productId,this.productName,this.productCost,this.productDescription);
+    this.productService.getProductByAll(this.productId,this.productName,this.productCost,this.productDescription).subscribe(
+      (products)=>{ this.arrProductList=products;}
+    );
   }
 
 }

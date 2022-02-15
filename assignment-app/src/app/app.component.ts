@@ -1,5 +1,6 @@
 import { AbstractEmitterVisitor } from '@angular/compiler/src/output/abstract_emitter';
 import { Component } from '@angular/core';
+import { AuthenticationService } from './authentication.service';
 import { LoggerService } from './logger.service';
 import { Product } from './Product';
 import { ProductService } from './product.service';
@@ -112,6 +113,13 @@ export class AppComponent {
   editUser(index:number){
     
   }
-  constructor(private productService : ProductService,private logger:LoggerService){}
-  
+  strLoginId="anurag";
+  strLoginPassword="1234";
+  constructor(private productService : ProductService,private logger:LoggerService,private authService:AuthenticationService){}
+  loginUser(){
+    this.authService.login();
+  } 
+  logoutUser(){
+    this.authService.logout();
+  }
 }

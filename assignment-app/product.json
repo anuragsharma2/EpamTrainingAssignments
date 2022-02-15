@@ -1,0 +1,9 @@
+{
+    "products":[
+        {"productId":201, "productName":"android","productCost": 20000,"productDescription":"android phone"},
+        {"productId":202, "productName":"TV","productCost": 40000,"productDescription":"sony TV"},
+        {"productId":203, "productName":"Cycle","productCost": 3000,"productDescription":"gear cycle"},
+        {"productId":204, "productName":"Car","productCost": 1500000,"productDescription":"electric Car"},
+        {"productId":205, "productName":"Truck","productCost": 2000000,"productDescription":"Truck"}
+    ]
+}

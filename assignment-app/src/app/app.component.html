@@ -112,26 +112,39 @@ This is ngStyle div block with attribute directive
   </table>
 </div>
 <br><hr><br>-->
-<nav class="navbar navbar-dark mb-5">
+<nav class="navbar bg-dark navbar-dark mb-5">
   <div class="container">
     <ul class="nav nav-pills">
       <li class="nav-item">
-        <a class="nav-link" routerLinkActive="active" routerLink="/about">About</a>
+        <a class="nav-link" routerLinkActive="active" routerLink="/about"><h4>About</h4></a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" routerLinkActive="active" routerLink="/contact">Contact US</a>
+        <a class="nav-link" routerLinkActive="active" routerLink="/contact"><h4>Contact US</h4></a>
+      </li>
+     <li class="nav-item">
+        <a class="nav-link" routerLinkActive="active" [routerLink]="['/login']" [queryParams]="{uid:strLoginId,password:strLoginPassword}">LOGIN</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" routerLinkActive="active" routerLink="/product">Products</a>
+        <a class="nav-link" routerLinkActive="active" routerLink="/employee"><h4>Employee</h4></a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" routerLinkActive="active" routerLink="/employee">Employee</a>
+        <a class="nav-link" routerLinkActive="active" routerLink="/product"><h4>Product</h4></a>
       </li>
+      <li class="nav-item">
+        <a class="nav-link" routerLinkActive="active" routerLink="/orders"><h4>Orders</h4></a>
+      </li>&nbsp;
+      <div>
+        <button class="btn btn-success" (click)="loginUser()"><h4>Login</h4></button>&nbsp;
+        <button class="btn btn-success" (click)="logoutUser()"><h4>Logout</h4></button>
+      </div>
     </ul>
   </div>
 </nav>
 
 <router-outlet></router-outlet>
 <br><hr><br>
-footer
+<div class="footer">
+  footer
+</div>
+
 
