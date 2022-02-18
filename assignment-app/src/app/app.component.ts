@@ -117,9 +117,7 @@ export class AppComponent {
   strLoginPassword="1234";
   constructor(private productService : ProductService,private logger:LoggerService,private authService:AuthenticationService){}
   loginUser(){
-    this.authService.login();
-  } 
-  logoutUser(){
-    this.authService.logout();
+    
   }
+
 }

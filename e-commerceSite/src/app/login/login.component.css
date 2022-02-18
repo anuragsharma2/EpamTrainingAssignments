@@ -1,0 +1,9 @@
+.form{
+    margin:auto; 
+    text-align: center; 
+    width:50%; 
+    height:50%;
+}
+.body{
+    background-image: url("../../assets/backgroundImg.jpg");
+}

@@ -11,13 +11,10 @@ export class LoginComponent implements OnInit {
   constructor(private activatedRoute:ActivatedRoute) { }
   parameters:any;
   ngOnInit(): void {
-    this.activatedRoute.queryParams.subscribe(
-      (param)=>{
-        this.parameters=param;
-        let strParam="id "+this.parameters.uid+" password "+this.parameters.password;
-        alert(strParam);
-      }
-    );
   }
+  enteredUserId!:string;
+  enteredPassword!:string;
+  userId="anurag";
+  password="admin";
 
 }

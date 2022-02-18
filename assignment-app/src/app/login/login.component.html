@@ -1,1 +1,15 @@
-<p>login works!</p>
+<div class="header">
+    <h1>Welcome To BHARAT MART</h1>
+</div>
+<div class="body">
+    <div class="form">
+        <img src="../../assets/login.jpg" class="img-fluid" width=30% height=30%>
+        <h4>User ID </h4>
+        <input type="text" [(ngModel)]="enteredUserId">
+        <h4>Password </h4>
+        <input type="password" [(ngModel)]="enteredPassword"><br><br>
+        <button class="btn btn-primary" routerLinkActive="active" [routerLink]="['/product']" [queryParams]="{uid:userId,password:password}">LOGIN</button><br><br>
+    </div>
+</div>
+
+
