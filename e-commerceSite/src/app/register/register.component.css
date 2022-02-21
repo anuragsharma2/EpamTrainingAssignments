@@ -6,14 +6,13 @@
 }
 .body{
     background-image: url("../../assets/backgroundImg.jpg");
-}
-input:focus { 
+}input:focus { 
     outline: none !important;
-    border-color: #1d5ea3;
-    box-shadow: 0 0 10px #1d5999;
+    border-color: #719ECE;
+    box-shadow: 0 0 10px #719ECE;
 }
 textarea:focus { 
     outline: none !important;
-    border-color: #2b76c7;
-    box-shadow: 0 0 10px #0f345c;
+    border-color: #719ECE;
+    box-shadow: 0 0 10px #719ECE;
 }

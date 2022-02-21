@@ -1,0 +1,66 @@
+<div class="body">
+    <div class="form">
+        <img src="../../assets/registration.jpg" class="img-fluid" width=30% height=20%>
+        <form [formGroup]="registerForm">
+            <h4>User ID </h4>
+            <input type="text" formControlName="registerUserId">
+            <div *ngIf="this.registerForm.get('registerUserId')?.invalid && (this.registerForm.get('registerUserId')?.dirty || this.registerForm.get('registerUserId')?.touched )">
+                <p style="color:red;font-size: small" *ngIf="this.registerForm.get('registerUserId')?.errors?.['required']">
+                User ID is required 
+                </p>
+                <p style="color:red;font-size: small;" *ngIf="this.registerForm.get('registerUserId')?.errors?.['minlength']">
+                User ID should be atleast 3 characters.
+                </p>
+            </div>    
+            <h4>First Name</h4>
+            <input type="text" formControlName="firstName">
+            <h4>Last Name</h4>
+            <input type="text" formControlName="lastName">
+            <h4>Password </h4>
+            <input type="password" formControlName="registerPassword"><br>
+            <div *ngIf="this.registerForm.get('registerPassword')?.invalid && (this.registerForm.get('registerPassword')?.dirty || this.registerForm.get('registerPassword')?.touched )">
+                <p style="color:red;font-size: small;" *ngIf="this.registerForm.get('registerPassword')?.errors?.['required']">
+                Password is required 
+                </p>
+                <p style="color:red;font-size: small;" *ngIf="this.registerForm.get('registerPassword')?.errors?.['minlength']">
+                   Password should be atleast 3 characters.
+                </p>
+                <p style="color:red;font-size: small;" *ngIf="this.registerForm.get('registerPassword')?.errors?.['maxlength']">
+                    Password should be of atmost 8 characters.
+                </p>  
+            </div>
+        <br> <h4>Gender&nbsp;&nbsp; <input type="radio" formControlName="gender" value="M"><label for="male">&nbsp;Male&nbsp;</label>
+            <input type="radio" formControlName="gender" value="F"><label for="male">&nbsp;Female&nbsp;</label>
+            <input type="radio" formControlName="gender" value="O"><label for="male">&nbsp;Others&nbsp;</label></h4>
+            <br><h4>Email Id </h4>
+            <input type="text" formControlName="emailId">
+            <div *ngIf="this.registerForm.get('emailId')?.invalid && (this.registerForm.get('emailId')?.dirty || this.registerForm.get('emailId')?.touched )">
+                <p style="color:red;font-size: small;" *ngIf="this.registerForm.get('emailId')?.errors?.['required']">
+                email Id is required 
+                </p>
+                <p style="color:red;font-size: small;" *ngIf="this.registerForm.get('emailId')?.errors?.['invalidUid']">
+                email Id must end with .com
+                </p>
+            </div>    
+            <h4>Mobile Number </h4>
+            <input type="text" formControlName="mobileNo">
+            <div *ngIf="this.registerForm.get('mobileNo')?.invalid && (this.registerForm.get('mobileNo')?.dirty || this.registerForm.get('mobileNo')?.touched )">
+                <p style="color:red;font-size: small;" *ngIf="this.registerForm.get('mobileNo')?.errors?.['minlength']">
+                    enter 10 digit mobile No.
+                </p>
+                <p style="color:red;font-size: small;" *ngIf="this.registerForm.get('mobileNo')?.errors?.['maxlength']">
+                    enter 10 digit mobile No.
+                </p>
+            </div>
+            <h4>Address</h4>
+            <input type="text" formControlName="address">
+            <div *ngIf="this.registerForm.get('address')?.invalid && (this.registerForm.get('address')?.dirty || this.registerForm.get('address')?.touched )">
+                <p style="color:red;font-size: small;" *ngIf="this.registerForm.get('address')?.errors?.['required']">
+                Address is required 
+                </p>
+            </div><br><br>            
+            <button type="button" class="btn btn-primary" (click)="register()">Register</button><br><br>
+            <h4 style="color:aliceblue">want to login</h4><button class="btn btn-secondary" (click)="toLogin()">Login</button><hr>
+        </form>        
+    </div>
+</div>

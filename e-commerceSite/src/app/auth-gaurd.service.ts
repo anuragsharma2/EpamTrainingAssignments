@@ -20,6 +20,6 @@ export class AuthGaurdService {
   }
   logout(){
     localStorage.setItem(this.varIsLoggedIn,"false");
-    this.router.navigate([""])   
+    this.router.navigate(["/login"])   
   }
 }

@@ -1,0 +1,7 @@
+<div style="text-align:center;overflow-y: auto; max-height:500px;">
+   <h4> {{product.productTitle}}</h4><br><br>
+    <img src="{{product.productImages[0]}}" ><br><br>
+    <p>{{product.productDescription}}</p><br>   
+    <p>Price : {{product.productCost | currency : 'INR'}}</p><br>
+    <p>Product Rating : {{product.rating}}</p>
+</div>

@@ -1,7 +1,11 @@
 import { Component, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { AuthGaurdService } from '../auth-gaurd.service';
+import { EachProductDialogComponent } from '../each-product-dialog/each-product-dialog.component';
 import { Product } from '../Product';
 import { ProductService } from '../product.service';
+import { ProfileModalComponent } from '../profile-modal/profile-modal.component';
+import { UsersService } from '../users.service';
 
 @Component({
   selector: 'app-products',
@@ -10,8 +14,10 @@ import { ProductService } from '../product.service';
 })
 export class ProductsComponent implements OnInit {
 
-  constructor(private authGaurdService:AuthGaurdService,private productService:ProductService) { }
+  constructor(private userService:UsersService,private authGaurdService:AuthGaurdService,private productService:ProductService,private dialogRef:MatDialog) { }
+  currentProductCategory=this.productService.products;
   products=this.productService.products;
+
   ngOnInit(): void {
 
   }
@@ -19,43 +25,47 @@ export class ProductsComponent implements OnInit {
     this.authGaurdService.logout();
   }
   sortByRating(products:Product[]){
-    products.sort((a,b)=>a<b?1:-1)
+    products.sort((a,b)=>a.rating<b.rating?1:-1)
     return products;
   }
-  
+  openProduct(product:Product){
+    this.dialogRef.open(EachProductDialogComponent,{ data:product});
+  }
   Mens(){
     this.products=this.productService.getMensProducts();
     this.products=this.sortByRating(this.products);    
+    this.currentProductCategory=this.products;
   }
   Womens(){
     this.products=this.productService.getWomensProducts();
-    this.products=this.sortByRating(this.products);    
+    this.products=this.sortByRating(this.products);
+    this.currentProductCategory=this.products;    
   }
   Kids(){
     this.products=this.productService.getKidsProducts();
-    this.products=this.sortByRating(this.products);    
+    this.products=this.sortByRating(this.products);
+    this.currentProductCategory=this.products;    
   }
   Electronics(){
     this.products=this.productService.getElectronicsProducts();
     this.products=this.sortByRating(this.products);    
+    this.currentProductCategory=this.products;
   }
   pname!:string;
-  startingPrice!:number;
-  endingPrice!:number;
+  startingPrice!:number|'';
+  endingPrice!:number|'';
   filterByname(){
-    this.products=this.productService.getProductByName(this.pname,this.products);
+    this.products=this.productService.getProductByName(this.pname,this.currentProductCategory);
     this.products=this.sortByRating(this.products);    
   }
-  filterByStartingPrice(){
-    this.products=this.productService.getProductByStartingPrice(this.startingPrice,this.products);
-    this.products=this.sortByRating(this.products);    
-  }
-  filterByEndingPrice(){
-    this.products=this.productService.getProductByEndingPrice(this.endingPrice,this.products);
-    this.products=this.sortByRating(this.products);    
-  }
+  
   filterByPriceRange(){
-    this.products=this.productService.getProductByPriceRange(this.startingPrice,this.endingPrice,this.products);
-    this.products=this.sortByRating(this.products);    
+    this.products=this.productService.getProductByPriceRange(this.startingPrice,this.endingPrice,this.currentProductCategory);
+    this.products=this.sortByRating(this.products);  
+    this.startingPrice='';
+    this.endingPrice='';  
+  }
+  openProfile(){
+    this.dialogRef.open(ProfileModalComponent,{ data:this.userService.currentUser});
   }
 }

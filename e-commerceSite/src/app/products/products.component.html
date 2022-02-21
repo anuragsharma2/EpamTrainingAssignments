@@ -1,6 +1,6 @@
 
 <div style="margin-right:5px;margin-top:5px;text-align: right;">
-    <button class="btn btn-info btn-lg">Profile</button>&nbsp;
+    <button class="btn btn-info btn-lg" (click)="openProfile()">Profile</button>&nbsp;
     <button class="btn btn-danger btn-lg" (click)="logout()">Logout</button>
 </div>
 <button style="margin-right:5px;margin-left:5px;" class="btn btn-secondary" (click)="Mens()">Mens</button>
@@ -11,23 +11,23 @@
 <p class="filterHead">filter products by below features </p>
 <div class="filters">
     <input type="text" [(ngModel)]="pname" (ngModelChange)="filterByname()" placeholder="Product Name" style="border: 5px solid rgb(229, 162, 162); margin-right: 5rem;">
-    <input type="text" [(ngModel)]="startingPrice" (ngModelChange)="filterByStartingPrice()" placeholder="starting Price" style="border: 5px solid rgb(229, 162, 162);">
+    <input type="text" [(ngModel)]="startingPrice" placeholder="starting Price" style="border: 5px solid rgb(229, 162, 162);">
     &nbsp;<button class="btn btn-info" (click)="filterByPriceRange()">In Price Range</button>&nbsp;
-    <input type="text" [(ngModel)]="endingPrice" (ngModelChange)="filterByEndingPrice()" placeholder="ending Price" style="margin-right: 5rem;border: 5px solid rgb(229, 162, 162);">
+    <input type="text" [(ngModel)]="endingPrice" placeholder="ending Price" style="margin-right: 5rem;border: 5px solid rgb(229, 162, 162);">
 </div>
 <div class="container">
-    <div >
         <div class="row">
             <div *ngFor="let product of products;" class="col-md-3">
+                <button (click)="openProduct(product)" style="border:0ch">
                 <div class="card" style="text-align: center;">
                     <img [src]="product.productImages[0]" class="img-thumbnail card-img-top">
-                    <div class="card-body shadow p-3 mb-4 bg-white rounded">
+                    <div class="card-body shadow mb-1 bg-white rounded">
                         <h5 class="card-title">{{product.productTitle}}</h5>
                         <h5>{{product.productCost | currency : 'INR' }}</h5><br>
                         <a href="#" class="btn btn-secondary">Add to Cart</a>
                     </div>
-                </div>
+                </div>    
+                </button>
             </div>
         </div>
-    </div>
 </div>
