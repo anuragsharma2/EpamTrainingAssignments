@@ -1,5 +1,6 @@
 
 <div style="margin-right:5px;margin-top:5px;text-align: right;">
+    <button class="btn btn-primary btn-lg" (click)="goToCart()">CART</button>&nbsp;
     <button class="btn btn-info btn-lg" (click)="openProfile()">Profile</button>&nbsp;
     <button class="btn btn-danger btn-lg" (click)="logout()">Logout</button>
 </div>
@@ -24,7 +25,7 @@
                     <div class="card-body shadow mb-1 bg-white rounded">
                         <h5 class="card-title">{{product.productTitle}}</h5>
                         <h5>{{product.productCost | currency : 'INR' }}</h5><br>
-                        <a href="#" class="btn btn-secondary">Add to Cart</a>
+                        <button class="btn btn-secondary" (click)="addToCart(product)">Add to Cart</button>
                     </div>
                 </div>    
                 </button>

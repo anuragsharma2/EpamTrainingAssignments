@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { Router } from '@angular/router';
 import { AuthGaurdService } from '../auth-gaurd.service';
 import { EachProductDialogComponent } from '../each-product-dialog/each-product-dialog.component';
 import { Product } from '../Product';
@@ -14,7 +15,7 @@ import { UsersService } from '../users.service';
 })
 export class ProductsComponent implements OnInit {
 
-  constructor(private userService:UsersService,private authGaurdService:AuthGaurdService,private productService:ProductService,private dialogRef:MatDialog) { }
+  constructor(private userService:UsersService,private authGaurdService:AuthGaurdService,private productService:ProductService,private dialogRef:MatDialog,private router:Router) { }
   currentProductCategory=this.productService.products;
   products=this.productService.products;
 
@@ -67,5 +68,13 @@ export class ProductsComponent implements OnInit {
   }
   openProfile(){
     this.dialogRef.open(ProfileModalComponent,{ data:this.userService.currentUser});
+  }
+  goToCart(){
+    this.productService.defineCartQuantity();
+    this.router.navigate(["/cart"]);
+  }
+  addToCart(product:Product){
+    this.productService.cartProducts.push(product);
+    this.productService.cartTotal+=product.productCost;
   }
 }

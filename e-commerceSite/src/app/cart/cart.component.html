@@ -1,0 +1,27 @@
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th>S no.</th>
+            <th>Item </th>
+            <th>image</th>
+            <th>quantity</th>
+            <th>Price</th>
+        </tr>
+    </thead>    
+        <tbody *ngFor="let product of this.cartProducts;let i=index">
+            <tr>
+                <td>{{i+1}}</td>
+                <td>{{product.productTitle}}</td>
+                <td><img src="{{product.productImages[0]}}" style="max-width: 50%;;max-height:50%"></td>
+                <td>{{this.productQuantity[i]}}</td>
+                <td>{{product.productCost}}</td>
+            </tr>
+        </tbody>
+        <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td><h3 *ngIf="this.productService.cartTotal!=0">Total Buy Price =</h3></td>
+            <td><h3 *ngIf="this.productService.cartTotal!=0">{{this.productService.cartTotal | currency : 'INR' }}</h3></td>
+        </tr>
+</table>

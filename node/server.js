@@ -4,10 +4,10 @@ var server=net.createServer((connection)=>{         //connection - eventemitter
     connection.on('data',(data)=>{
         console.log("data from client : "+data.toString());
     });
+    connection.write("message sent from server ");
     connection.on('end',()=>{
         console.log("client disconnected ");
     });
-    connection.write("message sent from server ");
 });
 server.listen(8100,()=>{
     console.log("server is listening on port 8100 ");

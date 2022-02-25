@@ -10,6 +10,7 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { MatDialogModule } from '@angular/material/dialog';
 import { EachProductDialogComponent } from './each-product-dialog/each-product-dialog.component';
 import { ProfileModalComponent } from './profile-modal/profile-modal.component';
+import { CartComponent } from './cart/cart.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { ProfileModalComponent } from './profile-modal/profile-modal.component';
     ProductsComponent,
     RegisterComponent,
     EachProductDialogComponent,
-    ProfileModalComponent
+    ProfileModalComponent,
+    CartComponent
   ],
   imports: [
     BrowserModule,

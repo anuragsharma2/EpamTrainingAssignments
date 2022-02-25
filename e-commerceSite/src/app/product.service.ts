@@ -50,6 +50,9 @@ export class ProductService {
     {id:40,productTitle:"APPLE iPad (9th Gen) 64 GB ROM 10.2 inch with Wi-Fi Only (Space Grey)",rating:4.7,productCost:30900,productCategory:"electronics",productImages:["https://rukminim1.flixcart.com/image/832/832/ktop5e80/tablet/x/9/o/mk2k3hn-a-apple-original-imag6yy7xjjugz4w.jpeg?q=70"],productDescription:"Video Calling: FaceTime Video, Centre Stage, iPad to any FaceTime-enabled Device over Wi-Fi or Mobile Data, Audio Calling: FaceTime Audio, iPad to any FaceTime-enabled Device over Wi-Fi or Mobile Data, Stereo Speakers, Dual Microphones for Calls, Video Recording and Audio Recording, Digital Compass, iBeacon Micro-location"}
 
   ]
+  cartProducts:Product[]=[];
+  cartMap=new Map();
+  cartTotal:number=0;
   getProductByName(pname:string,products:Product[]):Product[]{
     let gotProductByName=products.filter( 
       (product)=>{
@@ -116,5 +119,16 @@ export class ProductService {
     )
     return gotCategoryProducts;
   }
+  defineCartQuantity(){ 
+    for(let i of this.cartProducts){
+       this.cartMap.set(i,1)
+      }
+    for(let i of this.cartProducts){
+       this.cartMap.set(i,this.cartMap.get(i)+1)
+      }
+    for(let i of this.cartMap){
+       this.cartMap.set(i[0],i[1]-1)
+      }
+    }
 }
 
