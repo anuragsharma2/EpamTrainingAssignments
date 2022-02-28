@@ -2,7 +2,6 @@ import { Component, OnInit,Output,EventEmitter } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthGaurdService } from '../auth-gaurd.service';
-import { User } from '../User';
 import { UsersService } from '../users.service';
 
 @Component({
@@ -12,7 +11,7 @@ import { UsersService } from '../users.service';
 })
 export class LoginComponent implements OnInit {
 
-  constructor(private router:Router,private authGaurdService:AuthGaurdService,private users:UsersService) { }
+  constructor(private router:Router,private authGaurdService:AuthGaurdService,private usersService:UsersService) { }
   
   ngOnInit(): void {
   }
@@ -27,12 +26,18 @@ export class LoginComponent implements OnInit {
     loginPassword:new FormControl('',[Validators.required,Validators.minLength(3),Validators.maxLength(8)]),
   });
   loginUser(){
-    if(true==this.users.checkCredentials(this.loginForm.get('loginUserId')?.value,this.loginForm.get('loginPassword')?.value)){
-        this.router.navigate(["/product"]);
-        this.authGaurdService.login();
-        return ;
+    this.usersService.checkCredentials(this.loginForm.get('loginUserId')?.value,this.loginForm.get('loginPassword')?.value).subscribe({
+      next:(data)=>{
+        this.usersService.currentUser=JSON.parse(data)[0];
+          alert("valid user");
+          this.router.navigate(["login/products"]);
+          this.authGaurdService.login(); 
+      },
+      error:(err)=>{
+        console.log(err);
+        alert("error in Login");
       }
-    alert("Invalid Credentials");
+    });
   }
   toRegister(){
     this.router.navigate(["/register"]);

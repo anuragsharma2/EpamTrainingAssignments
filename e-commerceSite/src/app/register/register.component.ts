@@ -13,7 +13,7 @@ import { UsersService } from '../users.service';
 })
 export class RegisterComponent implements OnInit {
 
-  constructor(private router:Router,private users:UsersService) { }
+  constructor(private router:Router,private usersService:UsersService) { }
 
   ngOnInit(): void {
   }
@@ -29,8 +29,16 @@ export class RegisterComponent implements OnInit {
     gender:new FormControl(null)
   });
   register(){
-    let user:User=new User(this.users.users[this.users.users.length-1].id+1,this.registerForm.get('registerUserId')?.value,this.registerForm.get('firstName')?.value,this.registerForm.get('lastName')?.value,this.registerForm.get('registerPassword')?.value,this.registerForm.get('emailId')?.value,this.registerForm.get('mobileNo')?.value,this.registerForm.get('address')?.value,this.registerForm.get('gender')?.value);
-    this.users.users.push(user);
+    let user:User=new User(this.registerForm.get('registerUserId')?.value,this.registerForm.get('firstName')?.value,this.registerForm.get('lastName')?.value,this.registerForm.get('registerPassword')?.value,this.registerForm.get('emailId')?.value,this.registerForm.get('mobileNo')?.value,this.registerForm.get('address')?.value,this.registerForm.get('gender')?.value);
+    this.usersService.createUser(user).subscribe({
+      next:(data)=>{
+        alert(data);
+      },
+      error:(err)=>{
+        console.log(err);
+        alert("could not register");
+      }
+    });
     this.router.navigate(["/login"]);
   }
   toLogin(){

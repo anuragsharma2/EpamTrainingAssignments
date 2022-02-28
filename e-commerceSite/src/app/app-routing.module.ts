@@ -11,8 +11,8 @@ const routes: Routes = [
   {path:'',component:LoginComponent},
   {path:'login',component:LoginComponent},
   {path:'register',component:RegisterComponent},
-  {path:'product',component:ProductsComponent,canActivate:[AuthGaurdService]},
-  {path:'cart',component:CartComponent,canActivate:[AuthGaurdService]},
+  {path:'login/products',component:ProductsComponent,canActivate:[AuthGaurdService]},
+  {path:'login/cart',component:CartComponent,canActivate:[AuthGaurdService]},
   {path:'**', component:LoginComponent}
 ];
 

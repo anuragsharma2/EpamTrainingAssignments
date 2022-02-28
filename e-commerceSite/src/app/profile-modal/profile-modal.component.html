@@ -1,9 +1,9 @@
 <div class="outter">
 <div style="overflow-y: auto;max-height: 600px;text-align: center;width: 600px;">
-    <h3>Hi {{data.firstName}}</h3><br><br>
+    <h3>Hi </h3><br><br>
     <form [formGroup]="registerForm">
-        <h4>User ID </h4>
-        <input type="text" formControlName="registerUserId">
+        <h4>User ID {{this.data.firstName}} </h4>
+        <input type="text" formControlName="registerUserId" placeholder="{{this.data.userId}}">
         <div *ngIf="this.registerForm.get('registerUserId')?.invalid && (this.registerForm.get('registerUserId')?.dirty || this.registerForm.get('registerUserId')?.touched )">
             <p style="color:red;font-size: small" *ngIf="this.registerForm.get('registerUserId')?.errors?.['required']">
             User ID is required 

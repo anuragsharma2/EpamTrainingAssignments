@@ -19,16 +19,16 @@
 <div class="container">
         <div class="row">
             <div *ngFor="let product of products;" class="col-md-3">
-                <button (click)="openProduct(product)" style="border:0ch">
                 <div class="card" style="text-align: center;">
-                    <img [src]="product.productImages[0]" class="img-thumbnail card-img-top">
+                    <button (click)="openProduct(product)" style="border:0ch">
+                    <img [src]="product.productImages" class="img-thumbnail card-img-top">
+                    </button>
                     <div class="card-body shadow mb-1 bg-white rounded">
                         <h5 class="card-title">{{product.productTitle}}</h5>
-                        <h5>{{product.productCost | currency : 'INR' }}</h5><br>
+                        <h5>{{product.productCost | currency : 'INR' }}</h5><br>    
                         <button class="btn btn-secondary" (click)="addToCart(product)">Add to Cart</button>
                     </div>
                 </div>    
-                </button>
             </div>
         </div>
 </div>

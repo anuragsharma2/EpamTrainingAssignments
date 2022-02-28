@@ -11,6 +11,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { EachProductDialogComponent } from './each-product-dialog/each-product-dialog.component';
 import { ProfileModalComponent } from './profile-modal/profile-modal.component';
 import { CartComponent } from './cart/cart.component';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import { CartComponent } from './cart/cart.component';
     FormsModule,
     ReactiveFormsModule,
     NoopAnimationsModule,
-    MatDialogModule
+    MatDialogModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]

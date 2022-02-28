@@ -14,6 +14,7 @@ export class ProfileModalComponent implements OnInit {
   constructor(@Inject(MAT_DIALOG_DATA) public data:User) { }
 
   ngOnInit(): void {
+    console.log(this.data);
   }
   registerForm=new FormGroup({
     registerUserId:new FormControl('',[ Validators.minLength(3),Validators.required ] ),

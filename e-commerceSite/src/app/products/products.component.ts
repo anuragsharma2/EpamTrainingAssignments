@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { AuthGaurdService } from '../auth-gaurd.service';
 import { EachProductDialogComponent } from '../each-product-dialog/each-product-dialog.component';
 import { Product } from '../Product';
@@ -15,40 +15,86 @@ import { UsersService } from '../users.service';
 })
 export class ProductsComponent implements OnInit {
 
-  constructor(private userService:UsersService,private authGaurdService:AuthGaurdService,private productService:ProductService,private dialogRef:MatDialog,private router:Router) { }
-  currentProductCategory=this.productService.products;
-  products=this.productService.products;
-
+  constructor(private userService:UsersService,private authGaurdService:AuthGaurdService,private productService:ProductService,private dialogRef:MatDialog,private router:Router,private route:ActivatedRoute) { }
+  currentProductCategory!:Product[];
+  products!:Product[];
   ngOnInit(): void {
-
+    this.productService.getAllProducts().subscribe({
+      next:(data)=>{
+        this.currentProductCategory= data;
+      },
+      error:(err)=>{
+        console.log(err);
+      }
+    });
+    this.productService.getAllProducts().subscribe({
+      next:(data)=>{
+        this.products= data;
+      },
+      error:(err)=>{
+        console.log(err);
+      }
+    });
   }
   logout(){
     this.authGaurdService.logout();
   }
   sortByRating(products:Product[]){
-    products.sort((a,b)=>a.rating<b.rating?1:-1)
+    products.sort((a,b)=>(a.rating > b.rating)?1:-1)
     return products;
   }
   openProduct(product:Product){
     this.dialogRef.open(EachProductDialogComponent,{ data:product});
   }
   Mens(){
-    this.products=this.productService.getMensProducts();
+    this.productService.getMensProducts().subscribe({
+      next:(data)=>{
+        this.products=data;
+      },
+      error:(err)=>{
+        console.log("error in getting mens product ");
+        
+      }
+    });
     this.products=this.sortByRating(this.products);    
     this.currentProductCategory=this.products;
   }
   Womens(){
-    this.products=this.productService.getWomensProducts();
+    this.productService.getWomensProducts().subscribe({
+      next:(data:any)=>{
+        this.products=data;
+      },
+      error:(err)=>{
+        console.log("error in category women products");
+        console.log(err);
+      }
+    });
     this.products=this.sortByRating(this.products);
     this.currentProductCategory=this.products;    
   }
   Kids(){
-    this.products=this.productService.getKidsProducts();
+    this.productService.getKidsProducts().subscribe({
+      next:(data)=>{
+        this.products=data;
+      },
+      error:(err)=>{
+        console.log(err);
+        
+      }
+    });
     this.products=this.sortByRating(this.products);
     this.currentProductCategory=this.products;    
   }
   Electronics(){
-    this.products=this.productService.getElectronicsProducts();
+    this.productService.getElectronicsProducts().subscribe({
+      next:(data)=>{
+        this.products=data;
+      },
+      error:(err)=>{
+        console.log(err);
+        
+      }
+    });
     this.products=this.sortByRating(this.products);    
     this.currentProductCategory=this.products;
   }
@@ -67,11 +113,12 @@ export class ProductsComponent implements OnInit {
     this.endingPrice='';  
   }
   openProfile(){
+    console.log(this.userService.currentUser);
     this.dialogRef.open(ProfileModalComponent,{ data:this.userService.currentUser});
   }
   goToCart(){
     this.productService.defineCartQuantity();
-    this.router.navigate(["/cart"]);
+    this.router.navigate(["/login/cart"]);
   }
   addToCart(product:Product){
     this.productService.cartProducts.push(product);

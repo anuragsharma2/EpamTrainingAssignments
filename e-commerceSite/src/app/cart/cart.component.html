@@ -1,20 +1,22 @@
 <table class="table table-hover">
     <thead>
         <tr>
-            <th>S no.</th>
+            <th>Sno.</th>
             <th>Item </th>
             <th>image</th>
             <th>quantity</th>
             <th>Price</th>
+            <th>Discard</th>
         </tr>
     </thead>    
         <tbody *ngFor="let product of this.cartProducts;let i=index">
             <tr>
                 <td>{{i+1}}</td>
                 <td>{{product.productTitle}}</td>
-                <td><img src="{{product.productImages[0]}}" style="max-width: 50%;;max-height:50%"></td>
+                <td><img src="{{product.productImages}}" style="max-width: 50%;;max-height:50%"></td>
                 <td>{{this.productQuantity[i]}}</td>
-                <td>{{product.productCost}}</td>
+                <td>{{product.productCost | currency:'INR'}}</td>
+                <td><button class="btn btn-danger" (click)="removeFromCart(product)">Remove</button></td>
             </tr>
         </tbody>
         <tr>
@@ -25,3 +27,4 @@
             <td><h3 *ngIf="this.productService.cartTotal!=0">{{this.productService.cartTotal | currency : 'INR' }}</h3></td>
         </tr>
 </table>
+<div *ngIf="this.productService.cartTotal!=0" style="text-align:right"><button class="btn btn-warning btn-lg">Checkout & Buy</button></div>
