@@ -30,7 +30,7 @@ export class LoginComponent implements OnInit {
       next:(data)=>{
         this.usersService.currentUser=JSON.parse(data)[0];
           alert("valid user");
-          this.router.navigate(["login/products"]);
+          this.router.navigate(["login/"+this.usersService.currentUser.userId+"/products"]);
           this.authGaurdService.login(); 
       },
       error:(err)=>{

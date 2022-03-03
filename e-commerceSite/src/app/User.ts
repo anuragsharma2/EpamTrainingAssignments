@@ -5,8 +5,8 @@ export class User{
     firstName!:string;
     lastName!:string;
     gender!:string;
-    emailId!:string;
     mobileNumber!:string;
+    emailId!:string;
     address!:string;
     constructor(userId:string,firstName:string,lastName:string,password:string,mobileNo:string,emailId:string,address:string,gender:string){
         this.userId=userId;

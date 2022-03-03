@@ -29,7 +29,7 @@ export class RegisterComponent implements OnInit {
     gender:new FormControl(null)
   });
   register(){
-    let user:User=new User(this.registerForm.get('registerUserId')?.value,this.registerForm.get('firstName')?.value,this.registerForm.get('lastName')?.value,this.registerForm.get('registerPassword')?.value,this.registerForm.get('emailId')?.value,this.registerForm.get('mobileNo')?.value,this.registerForm.get('address')?.value,this.registerForm.get('gender')?.value);
+    let user:User=new User(this.registerForm.get('registerUserId')?.value,this.registerForm.get('firstName')?.value,this.registerForm.get('lastName')?.value,this.registerForm.get('registerPassword')?.value,this.registerForm.get('mobileNo')?.value,this.registerForm.get('emailId')?.value,this.registerForm.get('address')?.value,this.registerForm.get('gender')?.value);
     this.usersService.createUser(user).subscribe({
       next:(data)=>{
         alert(data);

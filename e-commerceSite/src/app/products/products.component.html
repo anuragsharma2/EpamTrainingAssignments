@@ -11,10 +11,10 @@
 <br><br>
 <p class="filterHead">filter products by below features </p>
 <div class="filters">
-    <input type="text" [(ngModel)]="pname" (ngModelChange)="filterByname()" placeholder="Product Name" style="border: 5px solid rgb(229, 162, 162); margin-right: 5rem;">
-    <input type="text" [(ngModel)]="startingPrice" placeholder="starting Price" style="border: 5px solid rgb(229, 162, 162);">
-    &nbsp;<button class="btn btn-info" (click)="filterByPriceRange()">In Price Range</button>&nbsp;
-    <input type="text" [(ngModel)]="endingPrice" placeholder="ending Price" style="margin-right: 5rem;border: 5px solid rgb(229, 162, 162);">
+    <div style="margin-right: auto;">
+    <input type="text" [(ngModel)]="pname" (ngModelChange)="filterByname()" placeholder="Product Name" style="border: 5px solid rgb(229, 162, 162); margin-right: 5rem;"><br><br>
+    <ngx-slider (mouseup)="filterByPriceRange()" [(value)]="startingPrice" [(highValue)]="endingPrice" [options]="options" style="width:70%"></ngx-slider><br><br>
+    </div>
 </div>
 <div class="container">
         <div class="row">

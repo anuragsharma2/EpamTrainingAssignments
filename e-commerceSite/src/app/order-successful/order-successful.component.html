@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style> 
+div {
+  width: 60px;
+  height: 60px;
+  background-color: red;
+  position: relative;
+  animation-name: example;
+  animation-duration: 3s;
+  animation-iteration-count: infinite;
+}
+.parent{
+  width: 100px;
+  height: 100px;
+  background-color: brown;
+  position: relative;
+  animation-name: example;
+  animation-duration: 3s;
+  animation-iteration-count: infinite;
+}
+.cc{
+  width: 30px;
+  height: 30px;
+  background-color: brown;
+  position: relative;
+  animation-name: example;
+  animation-duration: 3s;
+  animation-iteration-count: infinite;
+}
+
+
+@keyframes example {
+  0%   {background-color:indigo; left:0px; top:0px;}
+  25%  {background-color:blue; left:100px; top:0px;}
+  50%  {background-color:green; left:100px; top:100px;}
+  75%  {background-color:yellow; left:0px; top:100px;}
+  100% {background-color:orange; left:0px; top:0px;}
+}
+</style>
+</head>
+<body style="text-align:center;margin:auto">
+
+<h1>Order Placed Successfully </h1>
+
+<p>Detailed Mail has been sent</p>
+
+<div class="parent" style="margin:auto">
+<div style="margin:auto"><div class="cc"></div></div>
+</div><br><br><br><br><br><br><br><br><br><br>
+
+</body>
+</html>
+
+

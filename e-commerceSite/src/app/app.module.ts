@@ -12,6 +12,8 @@ import { EachProductDialogComponent } from './each-product-dialog/each-product-d
 import { ProfileModalComponent } from './profile-modal/profile-modal.component';
 import { CartComponent } from './cart/cart.component';
 import { HttpClientModule } from '@angular/common/http';
+import { NgxSliderModule } from '@angular-slider/ngx-slider';
+import { OrderSuccessfulComponent } from './order-successful/order-successful.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +23,8 @@ import { HttpClientModule } from '@angular/common/http';
     RegisterComponent,
     EachProductDialogComponent,
     ProfileModalComponent,
-    CartComponent
+    CartComponent,
+    OrderSuccessfulComponent
   ],
   imports: [
     BrowserModule,
@@ -30,7 +33,8 @@ import { HttpClientModule } from '@angular/common/http';
     ReactiveFormsModule,
     NoopAnimationsModule,
     MatDialogModule,
-    HttpClientModule
+    HttpClientModule,
+    NgxSliderModule
   ],
   providers: [],
   bootstrap: [AppComponent]

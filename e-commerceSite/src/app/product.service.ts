@@ -11,6 +11,8 @@ export class ProductService {
   cartProducts:Product[]=[];
   cartMap=new Map();
   cartTotal:number=0;
+  orderBackendArray:any=[];
+  productQuantity:any=[];
   baseUrl="http://localhost:8001/";
   getAllProducts():Observable<any>{
     let url=this.baseUrl+"getAllProducts";
@@ -22,26 +24,7 @@ export class ProductService {
         return product.productTitle.toUpperCase().includes(pname.toUpperCase());
       })
       return gotProductByName;
-  }/*
-  getProductByStartingPrice(productStartingPrice:number,products:Product[]){
-    let gotProductByStartingPrice=products.filter(
-      (product)=>{
-        return product.productCost>=productStartingPrice;
-      }
-    )
-    return gotProductByStartingPrice;
   }
-  getProductByEndingPrice(productEndingPrice:number,products:Product[]){
-    if(!productEndingPrice){
-      return this.products;
-    }
-    let gotProductByEndingPrice=products.filter(
-      (product)=>{
-        return product.productCost<=productEndingPrice;
-      }
-    )
-    return gotProductByEndingPrice;
-  }*/
   getProductByPriceRange(productStartingPrice:number|'',productEndingPrice:number|'',products:Product[]){
     let gotProductsByPriceRange=products.filter(
       (product)=>{
@@ -75,6 +58,12 @@ export class ProductService {
       }
     for(let i of this.cartMap){
        this.cartMap.set(i[0],i[1]-1)
+      }
+      this.cartProducts=[];
+      for(let i of this.cartMap){
+        this.cartProducts.push(i[0]);
+        this.orderBackendArray.push({product:i[0],quantity:i[1]});
+        this.productQuantity.push(i[1]);
       }
     }
 }
