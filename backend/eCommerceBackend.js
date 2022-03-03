@@ -141,10 +141,10 @@ async function sendMail(order,user,callback){
         secure:false,
         auth:{
             user:"anuragww99@gmail.com",
-            pass:'9pamask9'
+            pass:''
         }
     });
-    let s1=`order with userId: ${user.userId}<br> <h3>details</h3><br><table><tbody><thead><th>product</th>
+    let s1=`order with userId: ${user.userId}<br> <h3>details</h3><br><table style="border: 2px solid black"><tbody><thead><th>product</th>
     <th>Cost </th>
     <th>Quantity</th></thead>`;
     let s2=``;
