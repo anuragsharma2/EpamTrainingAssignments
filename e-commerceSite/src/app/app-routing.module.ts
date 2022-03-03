@@ -7,6 +7,7 @@ import { OrderSuccessfulComponent } from './order-successful/order-successful.co
 import { Product } from './Product';
 import { ProductsComponent } from './products/products.component';
 import { RegisterComponent } from './register/register.component';
+import { YourOrdersComponent } from './your-orders/your-orders.component';
 
 const routes: Routes = [
   {path:'',component:LoginComponent},
@@ -14,6 +15,7 @@ const routes: Routes = [
   {path:'register',component:RegisterComponent},
   {path:'login/:userId/products',component:ProductsComponent,canActivate:[AuthGaurdService]},
   {path:'login/:userId/cart',component:CartComponent,canActivate:[AuthGaurdService]},
+  {path:'login/:userId/yourOrders',component:YourOrdersComponent,canActivate:[AuthGaurdService]},
   {path:'login/:userId/orderSuccessfull',component:OrderSuccessfulComponent},
   {path:'**', component:LoginComponent}
 ];

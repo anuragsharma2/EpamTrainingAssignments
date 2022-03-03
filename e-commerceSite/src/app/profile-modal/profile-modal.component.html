@@ -13,9 +13,9 @@
             </p>
         </div>    
         <h4>First Name</h4>
-        <input type="text" formControlName="firstName">
+        <input type="text" formControlName="firstName" placeholder="{{this.data.firstName}}">
         <h4>Last Name</h4>
-        <input type="text" formControlName="lastName">
+        <input type="text" formControlName="lastName" placeholder="{{this.data.lastName}}">
         <h4>Password </h4>
         <input type="password" formControlName="registerPassword"><br>
         <div *ngIf="this.registerForm.get('registerPassword')?.invalid && (this.registerForm.get('registerPassword')?.dirty || this.registerForm.get('registerPassword')?.touched )">
@@ -43,7 +43,7 @@
             </p>
         </div>    
         <h4>Mobile Number </h4>
-        <input type="text" formControlName="mobileNo">
+        <input type="text" formControlName="mobileNo" placeholder="{{this.data.mobileNumber}}">
         <div *ngIf="this.registerForm.get('mobileNo')?.invalid && (this.registerForm.get('mobileNo')?.dirty || this.registerForm.get('mobileNo')?.touched )">
             <p style="color:red;font-size: small;" *ngIf="this.registerForm.get('mobileNo')?.errors?.['minlength']">
                 enter 10 digit mobile No.
@@ -53,7 +53,7 @@
             </p>
         </div>
         <h4>Address</h4>
-        <input type="text" formControlName="address">
+        <input type="text" formControlName="address" placeholder="{{this.data.address}}">
         <div *ngIf="this.registerForm.get('address')?.invalid && (this.registerForm.get('address')?.dirty || this.registerForm.get('address')?.touched )">
             <p style="color:red;font-size: small;" *ngIf="this.registerForm.get('address')?.errors?.['required']">
             Address is required 

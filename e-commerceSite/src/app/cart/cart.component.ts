@@ -14,7 +14,9 @@ export class CartComponent implements OnInit {
   constructor(public productService:ProductService,private userService:UsersService,
     private activatedRoute:ActivatedRoute,private router:Router) { }
   ngOnInit(): void {
-    
+    this.activatedRoute.params.subscribe((data:any)=>{
+      this.userService.getCurrentUser(data.userId);
+    });
   }
   removeFromCart(product:Product){
     for(let i=0;i<this.productService.cartProducts.length;i++){
@@ -47,17 +49,25 @@ export class CartComponent implements OnInit {
     }  
   }
   placeOrder(){
-    this.userService.mailOrderDetails().subscribe({
+    this.userService.storeOrder().subscribe({
       next:(data)=>{
-        console.log(data);
-        alert("Order Placed Email sent to your emailId "+this.userService.currentUser.emailId);
-        this.activatedRoute.params.subscribe((data:any)=>{
-          this.router.navigate(["/login/"+data.userId+"/orderSuccessfull"]);
-        })
+        alert(data);
       },
       error:(err)=>{
         console.log(err);
       }
     });
+          this.userService.mailOrderDetails().subscribe({
+            next:(data)=>{
+              this.router.navigate(["/login/"+this.userService.currentUser.userId+"/orderSuccessfull"]);
+              alert("Order Placed Email sent to your emailId "+this.userService.currentUser.emailId);
+              },
+              error:(err)=>{
+                console.log(err);
+              }})
+    this.productService.cartProducts=[];
+    this.productService.cartMap.clear();
+    this.productService.cartTotal=0;
+    this.productService.productQuantity=[];
   }
 }

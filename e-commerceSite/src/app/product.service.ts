@@ -49,6 +49,10 @@ export class ProductService {
     let url=this.baseUrl+"getProductsByCategory/electronics"
     return this.http.get(url);
   }
+  getPreviousOrders():Observable<any>{
+    let url=this.baseUrl+"getPreviousOrders";
+    return this.http.get(url);
+  }
   defineCartQuantity(){ 
     for(let i of this.cartProducts){
        this.cartMap.set(i,1)

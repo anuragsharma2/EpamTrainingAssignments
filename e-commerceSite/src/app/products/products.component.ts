@@ -47,6 +47,9 @@ export class ProductsComponent implements OnInit {
   }
   
   ngOnInit(): void {
+    this.activatedRoute.params.subscribe((data:any)=>{
+      this.userService.getCurrentUser(data.userId);
+    })
     this.productService.getAllProducts().subscribe({
       next:(data)=>{
         this.currentProductCategory= data;
@@ -143,6 +146,11 @@ export class ProductsComponent implements OnInit {
     this.activatedRoute.params.subscribe((data:any)=>{
       this.productService.defineCartQuantity();
       this.router.navigate(["/login/"+data.userId+"/cart"]);
+    })
+  }
+  yourOrders(){
+    this.activatedRoute.params.subscribe((data:any)=>{
+      this.router.navigate(["/login/"+data.userId+"/yourOrders"]);
     })
   }
   addToCart(product:Product){

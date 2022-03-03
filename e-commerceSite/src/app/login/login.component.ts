@@ -1,6 +1,6 @@
 import { Component, OnInit,Output,EventEmitter } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { AuthGaurdService } from '../auth-gaurd.service';
 import { UsersService } from '../users.service';
 
@@ -11,9 +11,13 @@ import { UsersService } from '../users.service';
 })
 export class LoginComponent implements OnInit {
 
-  constructor(private router:Router,private authGaurdService:AuthGaurdService,private usersService:UsersService) { }
+  constructor(private router:Router,private authGaurdService:AuthGaurdService,private activatedRoute:ActivatedRoute
+    ,private usersService:UsersService) { }
   
   ngOnInit(): void {
+    this.activatedRoute.params.subscribe((data:any)=>{
+      this.usersService.getCurrentUser(data.userId);
+    })
   }
   
   viewLoginForm=true;

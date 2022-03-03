@@ -1,6 +1,8 @@
 var express=require('express');
 const Sequelize=require('sequelize');
 var cors=require('cors');
+const nodeMailer=require('nodemailer');
+const SendmailTransport = require('nodemailer/lib/sendmail-transport');
 var app=express();
 app.use(cors());
 app.use(express.json());
@@ -34,8 +36,8 @@ let users=sequelize.define('users',{
     firstName:Sequelize.STRING,
     lastName:Sequelize.STRING,
     gender:Sequelize.STRING,
-    emailId:Sequelize.STRING,
     mobileNumber:Sequelize.STRING,
+    emailId:Sequelize.STRING,
     address:Sequelize.STRING
 },{
     freezeTableName:true,
@@ -56,13 +58,22 @@ let products=sequelize.define('products',{
     freezeTableName:true,
     timestamps:false
 })
+let order=sequelize.define('orders',{
+    productId:Sequelize.INTEGER,
+    quantity:Sequelize.INTEGER,
+    userId:Sequelize.STRING,
+    createdAt:Sequelize.DATE
+},{
+    freezeTableName:true
+})
 //creating table 
 /*
-products.sync({force:true}).then((data)=>{
+order.sync({force:true}).then((data)=>{
     console.log("created user table successfully ");
 }).catch((err)=>{
     console.log("error in creating table: "+err);
-})*/
+})
+*/
 //API for creating new user
 app.post("/createUser",(req,res)=>{
     users.create({userId:req.body.userId,password:req.body.password,firstName:req.body.firstName,lastName:req.body.lastName,gender:req.body.gender,emailId:req.body.emailId,mobileNumber:req.body.mobileNumber,address:req.body.address}).then(()=>{
@@ -71,6 +82,11 @@ app.post("/createUser",(req,res)=>{
     }).catch((err)=>{
         console.log("error in creating user: "+err);
         res.status(406).send(err);
+    })
+})
+app.get("/getUserByUserId/:userId",(req,res)=>{
+    users.findAll({where:{userId:req.params.userId}}).then((data)=>{
+        res.send(data);
     })
 })
 // API for validating(checking) user in login
@@ -105,6 +121,57 @@ app.get("/getProductsByCategory/:category",(req,res)=>{
         res.status(400).send(err);
     })
 })
+app.post("/storeOrder",(req,res)=>{
+    console.log(req.body)
+    order.bulkCreate(req.body.order).then((data)=>{
+        console.log("order stored in DB");
+        res.status(202).send("order placed");
+    })
+})
+app.get("/getPreviousOrders",(req,res)=>{
+    console.log("inside previous orders");
+    order.findAll({group:"createdAt",order:[createdAt,"DESC"]}).then((data)=>{
+        res.status(200).send(data);
+    })
+})
+async function sendMail(order,user,callback){
+    let transporter=nodeMailer.createTransport({
+        host:"smtp.gmail.com",
+        port:587,
+        secure:false,
+        auth:{
+            user:"anuragww99@gmail.com",
+            pass:'9pamask9'
+        }
+    });
+    let s1=`order with userId: ${user.userId}<br> <h3>details</h3><br><table><tbody><thead><th>product</th>
+    <th>Cost </th>
+    <th>Quantity</th></thead>`;
+    let s2=``;
+    for(let i=0;i<order.length;i++){
+        s2+=`<tr><td>${order[i].product.productTitle}</td><td>${order[i].product.productCost}</td><td>${order[i].quantity}</td></tr>`;
+    }
+    let s3=`</tbody></table>`;
+    order
+    let mailOptions={
+        from:"Bharat Mart",
+        to:user.emailId,
+        subject:"your order was placed successfully",
+        html:s1+s2+s3
+    };
+    let info=await transporter.sendMail(mailOptions);
+    callback(info);
+}
+app.post("/sendEmail",(req,res)=>{
+    console.log("sending email");
+    let user=req.body.user;
+    let order=req.body.order;
+    sendMail(order,user,(info)=>{
+        console.log("the mail has been send");
+        res.status(200).send(info);
+    })
+})
+
 app.listen(8001,()=>{
     console.log("E commerce server listening on port 8001...");
 })

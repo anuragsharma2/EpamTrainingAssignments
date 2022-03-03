@@ -14,6 +14,7 @@ import { CartComponent } from './cart/cart.component';
 import { HttpClientModule } from '@angular/common/http';
 import { NgxSliderModule } from '@angular-slider/ngx-slider';
 import { OrderSuccessfulComponent } from './order-successful/order-successful.component';
+import { YourOrdersComponent } from './your-orders/your-orders.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import { OrderSuccessfulComponent } from './order-successful/order-successful.co
     EachProductDialogComponent,
     ProfileModalComponent,
     CartComponent,
-    OrderSuccessfulComponent
+    OrderSuccessfulComponent,
+    YourOrdersComponent
   ],
   imports: [
     BrowserModule,
