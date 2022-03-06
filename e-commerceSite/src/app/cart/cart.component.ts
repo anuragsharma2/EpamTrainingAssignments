@@ -26,6 +26,7 @@ export class CartComponent implements OnInit {
     else{
       this.productService.cartTotal=this.productService.cartTotal-this.productService.cartProducts[i].productCost;
       this.productService.cartProducts.splice(i,1);
+      this.productService.productQuantity.splice(i,1);
     }
   }
   placeOrder(){
