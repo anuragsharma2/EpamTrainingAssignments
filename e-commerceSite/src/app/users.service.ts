@@ -38,7 +38,8 @@ export class UsersService {
     let header={'content-type':'application/json'};
     let order=[];
     for(let i=0;i<this.productService.orderBackendArray.length;i++){
-      order.push({productId:this.productService.orderBackendArray[i].product.id,quantity:this.productService.orderBackendArray[i].quantity,userId:this.currentUser.userId})
+      console.log(this.productService.orderBackendArray[i].createdAt);      
+      order.push({productId:this.productService.orderBackendArray[i].product.id,quantity:this.productService.orderBackendArray[i].quantity,userId:this.currentUser.userId,createdAt:this.productService.orderBackendArray[i].createdAt})
     }
     let body=JSON.stringify({"order":order})
     return this.http.post(url,body,{'headers':header,responseType:'text'});

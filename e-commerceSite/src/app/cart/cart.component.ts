@@ -18,35 +18,15 @@ export class CartComponent implements OnInit {
       this.userService.getCurrentUser(data.userId);
     });
   }
-  removeFromCart(product:Product){
-    for(let i=0;i<this.productService.cartProducts.length;i++){
-      if(product==this.productService.cartProducts[i]){
-        if(this.productService.productQuantity[i]>1){
-          this.productService.productQuantity[i]=this.productService.productQuantity[i]-1;
-          this.productService.cartMap.set(product,this.productService.cartMap.get(product)-1);
-          this.productService.cartTotal= this.productService.cartTotal-product.productCost;
-          for(let i=0;i<this.productService.cartProducts.length;i++){
-            if(product==this.productService.cartProducts[i]){
-              this.productService.cartProducts.splice(i,1);
-              break;
-            }
-          }
-        }
-        else{
-          this.productService.cartProducts.splice(i,1);
-          this.productService.productQuantity.splice(i,1);
-          this.productService.cartMap.delete(product);
-          for(let i=0;i<this.productService.cartProducts.length;i++){
-            if(product==this.productService.cartProducts[i]){
-              this.productService.cartProducts.splice(i,1);
-              break;
-            }
-          }
-          this.productService.cartTotal= this.productService.cartTotal-product.productCost
-        }
-        return ;
-      }
-    }  
+  removeFromCart(i:any){
+    if(this.productService.productQuantity[i]>1){
+      this.productService.cartTotal=this.productService.cartTotal-this.productService.cartProducts[i].productCost;
+      this.productService.productQuantity[i]--;
+    }
+    else{
+      this.productService.cartTotal=this.productService.cartTotal-this.productService.cartProducts[i].productCost;
+      this.productService.cartProducts.splice(i,1);
+    }
   }
   placeOrder(){
     this.userService.storeOrder().subscribe({
@@ -60,14 +40,16 @@ export class CartComponent implements OnInit {
           this.userService.mailOrderDetails().subscribe({
             next:(data)=>{
               this.router.navigate(["/login/"+this.userService.currentUser.userId+"/orderSuccessfull"]);
-              alert("Order Placed Email sent to your emailId "+this.userService.currentUser.emailId);
+              alert("Order Placed Email sent to your emailId "+this.userService.currentUser.emailId +" removing from cart");
+              this.productService.cartProducts=[];
+              this.productService.cartTotal=0;
+              this.productService.productQuantity=[];
+              this.productService.orderBackendArray=[];
               },
               error:(err)=>{
                 console.log(err);
-              }})
-    this.productService.cartProducts=[];
-    this.productService.cartMap.clear();
-    this.productService.cartTotal=0;
-    this.productService.productQuantity=[];
+              }
+            }
+          )
   }
 }

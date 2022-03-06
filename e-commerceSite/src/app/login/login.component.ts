@@ -15,9 +15,6 @@ export class LoginComponent implements OnInit {
     ,private usersService:UsersService) { }
   
   ngOnInit(): void {
-    this.activatedRoute.params.subscribe((data:any)=>{
-      this.usersService.getCurrentUser(data.userId);
-    })
   }
   
   viewLoginForm=true;

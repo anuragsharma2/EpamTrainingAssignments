@@ -58,18 +58,20 @@ let products=sequelize.define('products',{
     freezeTableName:true,
     timestamps:false
 })
+
 let order=sequelize.define('orders',{
     productId:Sequelize.INTEGER,
     quantity:Sequelize.INTEGER,
     userId:Sequelize.STRING,
-    createdAt:Sequelize.DATE
+    createdAt:Sequelize.STRING
 },{
-    freezeTableName:true
+    freezeTableName:true,
+    timestamps:false
 })
 //creating table 
 /*
 order.sync({force:true}).then((data)=>{
-    console.log("created user table successfully ");
+    console.log("created orders table successfully ");
 }).catch((err)=>{
     console.log("error in creating table: "+err);
 })
@@ -122,7 +124,7 @@ app.get("/getProductsByCategory/:category",(req,res)=>{
     })
 })
 app.post("/storeOrder",(req,res)=>{
-    console.log(req.body)
+    console.log(req.body.order)
     order.bulkCreate(req.body.order).then((data)=>{
         console.log("order stored in DB");
         res.status(202).send("order placed");
@@ -130,7 +132,7 @@ app.post("/storeOrder",(req,res)=>{
 })
 app.get("/getPreviousOrders",(req,res)=>{
     console.log("inside previous orders");
-    order.findAll({group:"createdAt",order:[createdAt,"DESC"]}).then((data)=>{
+    order.findAll({group:["createdAt"],order:["createdAt","DESC"]}).then((data)=>{
         res.status(200).send(data);
     })
 })
@@ -144,12 +146,12 @@ async function sendMail(order,user,callback){
             pass:''
         }
     });
-    let s1=`order with userId: ${user.userId}<br> <h3>details</h3><br><table style="border: 2px solid black"><tbody><thead><th>product</th>
+    let s1=`order with userId: ${user.userId}<br> <h3>details</h3><br><table style="border:2px black solid;"><tbody><thead><th>product</th>
     <th>Cost </th>
     <th>Quantity</th></thead>`;
     let s2=``;
     for(let i=0;i<order.length;i++){
-        s2+=`<tr><td>${order[i].product.productTitle}</td><td>${order[i].product.productCost}</td><td>${order[i].quantity}</td></tr>`;
+        s2+=`<tr><td>${order[i].product.productTitle}</td><td>Rs ${order[i].product.productCost}</td><td>${order[i].quantity}</td></tr>`;
     }
     let s3=`</tbody></table>`;
     order

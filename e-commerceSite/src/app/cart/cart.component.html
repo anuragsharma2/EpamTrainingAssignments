@@ -16,7 +16,7 @@
                 <td><img src="{{product.productImages}}" style="max-width: 50%;;max-height:50%"></td>
                 <td>{{this.productService.productQuantity[i]}}</td>
                 <td>{{product.productCost | currency:'INR'}}</td>
-                <td><button class="btn btn-danger" (click)="removeFromCart(product)">Remove</button></td>
+                <td><button class="btn btn-danger" (click)="removeFromCart(i)">Remove</button></td>
             </tr>
         </tbody>
         <tr>

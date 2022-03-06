@@ -9,7 +9,6 @@ export class ProductService {
 
   constructor(private http:HttpClient) { }
   cartProducts:Product[]=[];
-  cartMap=new Map();
   cartTotal:number=0;
   orderBackendArray:any=[];
   productQuantity:any=[];
@@ -54,20 +53,10 @@ export class ProductService {
     return this.http.get(url);
   }
   defineCartQuantity(){ 
-    for(let i of this.cartProducts){
-       this.cartMap.set(i,1)
-      }
-    for(let i of this.cartProducts){
-       this.cartMap.set(i,this.cartMap.get(i)+1)
-      }
-    for(let i of this.cartMap){
-       this.cartMap.set(i[0],i[1]-1)
-      }
-      this.cartProducts=[];
-      for(let i of this.cartMap){
-        this.cartProducts.push(i[0]);
-        this.orderBackendArray.push({product:i[0],quantity:i[1]});
-        this.productQuantity.push(i[1]);
+    let d= new Date();
+    let date=d.toLocaleString("en-US", {timeZone: "Asia/Kolkata"});
+    for(let i=0;i<this.cartProducts.length;i++){
+        this.orderBackendArray.push({product:this.cartProducts[i],quantity:this.productQuantity[i],createdAt:date});
       }
     }
 }

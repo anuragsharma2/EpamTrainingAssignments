@@ -8,6 +8,7 @@ import { ProductService } from '../product.service';
 import { ProfileModalComponent } from '../profile-modal/profile-modal.component';
 import { UsersService } from '../users.service';
 import { Options,LabelType } from '@angular-slider/ngx-slider';
+import { NotifyComponent } from '../notify/notify.component';
 
 @Component({
   selector: 'app-products',
@@ -37,14 +38,6 @@ export class ProductsComponent implements OnInit {
       }
     }
   };
-  public isVisible: boolean = false;
-  showAlert() : void {
-    if (this.isVisible) { // if the alert is visible return
-      return;
-    } 
-    this.isVisible = true;
-    setTimeout(()=> this.isVisible = false,1000); // hide the alert after 1.0s
-  }
   
   ngOnInit(): void {
     this.activatedRoute.params.subscribe((data:any)=>{
@@ -63,7 +56,6 @@ export class ProductsComponent implements OnInit {
   logout(){
     this.authGaurdService.logout();
     this.productService.cartProducts=[];
-    this.productService.cartMap.clear();
     this.productService.cartTotal=0;
     this.productService.productQuantity=[];
   }
@@ -153,8 +145,29 @@ export class ProductsComponent implements OnInit {
       this.router.navigate(["/login/"+data.userId+"/yourOrders"]);
     })
   }
+  //adding product to carts array adding amount to total
   addToCart(product:Product){
-    this.productService.cartProducts.push(product);
-    this.productService.cartTotal+=product.productCost;
-  }
+    let dialogReference=this.dialogRef.open(NotifyComponent);
+    dialogReference.afterOpened().subscribe(()=>{
+      setTimeout(()=>{
+        dialogReference.close()
+      },300);
+    })
+        if(this.productService.cartProducts.length==0){
+          this.productService.cartProducts.push(product);
+          this.productService.productQuantity.push(1);
+          this.productService.cartTotal+=product.productCost;
+          return ;
+        }
+        for(let i=0;i<this.productService.cartProducts.length;i++){
+           if(product==this.productService.cartProducts[i]){
+             this.productService.productQuantity[i]++;
+             this.productService.cartTotal+=product.productCost;
+             return ;
+            }
+          }
+          this.productService.cartProducts.push(product);
+          this.productService.productQuantity.push(1);
+          this.productService.cartTotal+=product.productCost;
+    }
 }

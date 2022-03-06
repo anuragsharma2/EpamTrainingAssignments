@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { ProductService } from '../product.service';
+import { UsersService } from '../users.service';
 
 @Component({
   selector: 'app-your-orders',
@@ -8,9 +10,12 @@ import { ProductService } from '../product.service';
 })
 export class YourOrdersComponent implements OnInit {
 
-  constructor(private productService:ProductService) { }
+  constructor(private productService:ProductService,private activatedRoute:ActivatedRoute,private userService:UsersService) { }
   previousOrder="";
   ngOnInit(): void {
+    this.activatedRoute.params.subscribe((data:any)=>{
+      this.userService.getCurrentUser(data.userId);
+    })
     this.productService.getPreviousOrders().subscribe({
       next:(data)=>{
         this.previousOrder=data;
