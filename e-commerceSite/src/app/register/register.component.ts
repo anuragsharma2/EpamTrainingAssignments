@@ -28,7 +28,9 @@ export class RegisterComponent implements OnInit {
     address:new FormControl(null,[Validators.required]),
     gender:new FormControl(null)
   });
+  //adding new user to backend DB
   register(){
+    //creating new user
     let user:User=new User(this.registerForm.get('registerUserId')?.value,this.registerForm.get('firstName')?.value,this.registerForm.get('lastName')?.value,this.registerForm.get('registerPassword')?.value,this.registerForm.get('mobileNo')?.value,this.registerForm.get('emailId')?.value,this.registerForm.get('address')?.value,this.registerForm.get('gender')?.value);
     this.usersService.createUser(user).subscribe({
       next:(data)=>{

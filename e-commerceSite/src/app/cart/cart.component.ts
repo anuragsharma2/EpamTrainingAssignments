@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Product } from '../Product';
 import { ProductService } from '../product.service';
 import { UsersService } from '../users.service';
 
@@ -14,15 +13,18 @@ export class CartComponent implements OnInit {
   constructor(public productService:ProductService,private userService:UsersService,
     private activatedRoute:ActivatedRoute,private router:Router) { }
   ngOnInit(): void {
+    //when cart component loads we get the currentUser from backend
     this.activatedRoute.params.subscribe((data:any)=>{
       this.userService.getCurrentUser(data.userId);
     });
   }
   removeFromCart(i:any){
+    //if product quantity is more than 1 then we need to reduce its quantity, reduce from the cart total also
     if(this.productService.productQuantity[i]>1){
       this.productService.cartTotal=this.productService.cartTotal-this.productService.cartProducts[i].productCost;
       this.productService.productQuantity[i]--;
     }
+    // else if product quantity is only one then remove the product from cart ,reduce from the cart total
     else{
       this.productService.cartTotal=this.productService.cartTotal-this.productService.cartProducts[i].productCost;
       this.productService.cartProducts.splice(i,1);
@@ -30,6 +32,7 @@ export class CartComponent implements OnInit {
     }
   }
   placeOrder(){
+    // storing the order in backend DB
     this.userService.storeOrder().subscribe({
       next:(data)=>{
         alert(data);
@@ -38,6 +41,7 @@ export class CartComponent implements OnInit {
         console.log(err);
       }
     });
+    //for mailing the order to customer's email
           this.userService.mailOrderDetails().subscribe({
             next:(data)=>{
               this.router.navigate(["/login/"+this.userService.currentUser.userId+"/orderSuccessfull"]);

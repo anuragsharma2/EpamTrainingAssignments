@@ -27,6 +27,7 @@ export class LoginComponent implements OnInit {
     loginPassword:new FormControl('',[Validators.required,Validators.minLength(3),Validators.maxLength(8)]),
   });
   loginUser(){
+    //validating from backend whether user exists or not in DB 
     this.usersService.checkCredentials(this.loginForm.get('loginUserId')?.value,this.loginForm.get('loginPassword')?.value).subscribe({
       next:(data)=>{
         this.usersService.currentUser=JSON.parse(data)[0];

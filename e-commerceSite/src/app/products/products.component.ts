@@ -20,10 +20,14 @@ export class ProductsComponent implements OnInit {
   constructor(private userService:UsersService,private authGaurdService:AuthGaurdService,
     private productService:ProductService,private dialogRef:MatDialog,private router:Router,
     private activatedRoute:ActivatedRoute) { }
+  //contains products of selected category
   currentProductCategory!:Product[];
+  //contains products that are displayed on products page
   products!:Product[];
+  //for the filtering by price range
   startingPrice: number = 10;
   endingPrice: number = 101000;
+  //for ngxSlider
   options: Options = {
     floor: 0,
     ceil: 101000,
@@ -40,9 +44,11 @@ export class ProductsComponent implements OnInit {
   };
   
   ngOnInit(): void {
+    //getting current User from Backend onloading of this component
     this.activatedRoute.params.subscribe((data:any)=>{
       this.userService.getCurrentUser(data.userId);
     })
+    //getting all products From Backend not categorywise
     this.productService.getAllProducts().subscribe({
       next:(data)=>{
         this.currentProductCategory= data;
@@ -55,14 +61,16 @@ export class ProductsComponent implements OnInit {
   }
   logout(){
     this.authGaurdService.logout();
+    //if you logout of session cart will be emptied
     this.productService.cartProducts=[];
     this.productService.cartTotal=0;
     this.productService.productQuantity=[];
   }
-
+  // for opening each product in dialog box
   openProduct(product:Product){
     this.dialogRef.open(EachProductDialogComponent,{ data:product});
   }
+  //getting products by mens category from backend
   Mens(){
     this.productService.getMensProducts().subscribe({
       next:(data)=>{
@@ -77,6 +85,7 @@ export class ProductsComponent implements OnInit {
       }
     });
   }
+    //getting products by Womens category from backend
   Womens(){
     this.productService.getWomensProducts().subscribe({
       next:(data:any)=>{
@@ -90,6 +99,7 @@ export class ProductsComponent implements OnInit {
       }
     });    
   }
+    //getting products by kids category from backend
   Kids(){
     this.productService.getKidsProducts().subscribe({
       next:(data)=>{
@@ -103,6 +113,7 @@ export class ProductsComponent implements OnInit {
       }
     });
   }
+    //getting products by electronics category from backend
   Electronics(){
     this.productService.getElectronicsProducts().subscribe({
       next:(data)=>{
@@ -116,10 +127,12 @@ export class ProductsComponent implements OnInit {
       }
     });
   }
+  //sorting products by rating is called when products by category
   sortByRating(products:Product[]){
     products.sort((a,b)=> (a.rating < b.rating)?1:-1)
     return products;
   }
+  //filtering products by name
   pname!:string;
   filterByname(){
     this.products=this.productService.getProductByName(this.pname,this.currentProductCategory);
@@ -153,12 +166,15 @@ export class ProductsComponent implements OnInit {
         dialogReference.close()
       },300);
     })
+    //if cart is empty then adding product to cart and return from function
         if(this.productService.cartProducts.length==0){
           this.productService.cartProducts.push(product);
           this.productService.productQuantity.push(1);
           this.productService.cartTotal+=product.productCost;
           return ;
         }
+        //if product already exists in the cart then while adding we just need to increase there quantity 
+        //and return from function 
         for(let i=0;i<this.productService.cartProducts.length;i++){
            if(product==this.productService.cartProducts[i]){
              this.productService.productQuantity[i]++;
@@ -166,6 +182,7 @@ export class ProductsComponent implements OnInit {
              return ;
             }
           }
+          //if new product that doesn't exist in cart then we need to add it to cart and return from function
           this.productService.cartProducts.push(product);
           this.productService.productQuantity.push(1);
           this.productService.cartTotal+=product.productCost;
